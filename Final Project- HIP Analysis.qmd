@@ -60,6 +60,1155 @@ all_text <- all_text %>%
 ```
 
 ```{r}
-meta <- read_csv("metadata/metadata.csv") %>%
+library(readr)
+library(janitor)
+
+meta <- read_csv("metadata/document_metadata.csv") %>%
   clean_names()
+```
+
+```{r}
+summary(meta)
+```
+
+```{r}
+glimpse(meta)
+```
+
+```{r}
+table(meta$participant_type, useNA = "ifany")
+table(meta$week_number, useNA = "ifany")
+table(meta$work_mode, useNA = "ifany")
+```
+
+```{r}
+library(dplyr)
+library(stringr)
+library(readr)
+
+meta <- read_csv("metadata/document_metadata.csv")
+
+meta <- meta %>%
+  mutate(
+    organization_name = str_trim(organization_name),
+    organization_name = case_when(
+      organization_name == "Engineers Without Border" ~ "Engineers Without Borders",
+      organization_name == "Save The Children" ~ "Save the Children",
+      organization_name == "GWU" ~ "George Washington University",
+      TRUE ~ organization_name
+    )
+  )
+
+sort(unique(meta$organization_name))
+
+write_csv(meta, "metadata/document_metadata.csv")
+```
+
+```{r}
+meta %>%
+  count(organization_name, sort = TRUE)
+```
+
+```{r}
+all_text <- bind_rows(journals, interviews) %>%
+  rename(file_name = doc_id,
+         text_original = text)
+
+corpus_df <- all_text %>%
+  left_join(meta, by = "file_name")
+```
+
+```{r}
+glimpse(corpus_df)
+sum(is.na(corpus_df$doc_id.y))
+```
+
+```{r}
+library(dplyr)
+
+all_text <- bind_rows(journals, interviews) %>%
+  rename(
+    file_name = doc_id,
+    text_original = text
+  )
+
+corpus_df <- all_text %>%
+  left_join(meta, by = "file_name")
+```
+
+```{r}
+glimpse(corpus_df)
+
+sum(is.na(corpus_df$doc_id.y))
+sum(is.na(corpus_df$participant_type))
+```
+
+```{r}
+names(corpus_df)
+```
+
+```{r}
+corpus_df %>%
+  filter(is.na(participant_type)) %>%
+  select(file_name)
+```
+
+```{r}
+all_text %>%
+  anti_join(meta, by = "file_name") %>%
+  select(file_name)
+```
+
+```{r}
+meta %>%
+  anti_join(all_text, by = "file_name") %>%
+  select(file_name)
+```
+
+```{r}
+corpus_df <- all_text %>%
+  left_join(meta, by = "file_name")
+```
+
+```{r}
+meta <- read_csv("metadata/document_metadata.csv") %>%
+  clean_names()
+
+meta <- meta %>%
+  mutate(
+    file_name = if_else(
+      file_name == "supervisor_13_finalinterview.txt",
+      "supervisor_13-finalinterview.txt",
+      file_name
+    )
+  )
+
+all_text <- bind_rows(journals, interviews) %>%
+  rename(
+    file_name = doc_id,
+    text_original = text
+  )
+
+corpus_df <- all_text %>%
+  left_join(meta, by = "file_name")
+
+sum(is.na(corpus_df$participant_type))
+```
+
+# Create method specific corpus
+```{r}
+library(stringr)
+library(dplyr)
+
+corpus_df <- corpus_df %>%
+  as_tibble() %>%
+  mutate(
+    text_ner = str_squish(text_original),
+
+    text_tf = text_original %>%
+      str_replace_all("\\[.*?\\]", " ") %>%
+      str_to_lower() %>%
+      str_replace_all("[^[:alnum:]\\s]", " ") %>%
+      str_squish(),
+
+    text_lda = text_original %>%
+      str_replace_all("\\[.*?\\]", " ") %>%
+      str_to_lower() %>%
+      str_replace_all("[^[:alnum:]\\s]", " ") %>%
+      str_squish()
+  )
+```
+```{r}
+names(corpus_df)
+```
+
+```{r}
+corpus_df <- corpus_df %>%
+  mutate(word_count = str_count(text_original, "\\S+"))
+
+corpus_df %>% count(participant_type)
+corpus_df %>% count(early_late)
+summary(corpus_df$word_count)
+```
+
+# Tokenization for TF/TF-IDF/N-grams
+```{r}
+data(stop_words)
+
+tokens <- corpus_df %>%
+  select(doc_id, participant_type, early_late, cohort_year, organization_name, work_mode, text_tf) %>%
+  unnest_tokens(word, text_tf)
+
+tokens_clean <- tokens %>%
+  anti_join(stop_words, by = "word")
+```
+
+```{r}
+tokens_clean %>% count(word, sort = TRUE)
+```
+
+## Inductive- TF stage
+```{r}
+library(tidyverse)
+library(tidytext)
+library(stringr)
+library(forcats)
+```
+
+```{r}
+names(corpus_df)
+```
+```{r}
+data(stop_words)
+
+tokens <- corpus_df %>%
+  select(
+    doc_id,
+    participant_type,
+    participant_id,
+    week_number,
+    timepoint,
+    early_late,
+    cohort_year,
+    organization_name,
+    work_mode,
+    text_tf
+  ) %>%
+  unnest_tokens(word, text_tf)
+```
+```{r}
+glimpse(tokens)
+```
+```{r}
+tokens_nostop <- tokens %>%
+  anti_join(stop_words, by = "word")
+```
+
+```{r}
+generic_project_words <- tibble(
+  word = c(
+    "intern", "interns", "internship", "student", "students", "bit",
+    "project", "projects", "work", "working", "worked", "guys",
+    "organization", "team", "program", "week", "weeks", "yeah",
+    "really", "also", "would", "could", "one", "like", "just", "lot", "don", "day", "didn", "ve"
+  )
+)
+
+tokens_clean <- tokens_nostop %>%
+  anti_join(generic_project_words, by = "word")
+```
+
+```{r}
+tokens_clean %>%
+  count(word, sort = TRUE)
+```
+
+# Top words in student journals
+```{r}
+tf_students <- tokens_clean %>%
+  filter(participant_type == "student") %>%
+  count(word, sort = TRUE)
+
+tf_students %>% slice_head(n = 25)
+```
+
+# Top words in supervisor interviews
+```{r}
+tf_supervisors <- tokens_clean %>%
+  filter(participant_type == "supervisor") %>%
+  count(word, sort = TRUE)
+
+tf_supervisors %>% slice_head(n = 25)
+```
+
+# Visualize top words by participant type
+```{r}
+tf_top10_plot <- tf_by_type %>%
+  group_by(participant_type) %>%
+  slice_max(n, n = 10, with_ties = FALSE) %>%
+  ungroup() %>%
+  mutate(word = tidytext::reorder_within(word, n, participant_type)) %>%
+  ggplot(aes(x = word, y = n)) +
+  geom_col() +
+  coord_flip() +
+  tidytext::scale_x_reordered() +
+  facet_wrap(~ participant_type, scales = "free_y") +
+  labs(
+    title = "Top 10 Words by Participant Type",
+    x = NULL,
+    y = "Term Frequency"
+  )
+
+tf_top10_plot
+```
+
+```{r}
+ggsave(
+  "outputs/figures/top10_words_by_participant_type.png",
+  tf_top10_plot,
+  width = 8,
+  height = 6
+)
+```
+
+# TF within positive, challenge, and skill-related contexts
+```{r}
+positive_seed <- c(
+  "support", "helpful", "help", "great", "good", "positive",
+  "confident", "confidence", "growth", "learning", "learned",
+  "mentorship", "mentor", "professional", "success", "successful",
+  "valuable", "meaningful", "prepared", "strong", "excited"
+)
+```
+
+```{r}
+challenge_seed <- c(
+  "challenge", "challenges", "difficult", "difficulty", "hard",
+  "unclear", "confusing", "stress", "stressed", "workload",
+  "communication", "issue", "issues", "problem", "problems",
+  "uncertainty", "logistics", "remote", "time", "busy"
+)
+```
+
+```{r}
+skill_seed <- c(
+  "communication", "leadership", "analysis", "analytical",
+  "research", "writing", "management", "teamwork", "collaboration",
+  "problem", "technical", "data", "presentation", "organization"
+)
+```
+
+# Create context-level subsets
+
+```{r}
+positive_docs <- tokens_clean %>%
+  filter(word %in% positive_seed) %>%
+  distinct(doc_id)
+
+tokens_positive <- tokens_clean %>%
+  semi_join(positive_docs, by = "doc_id")
+```
+
+```{r}
+challenge_docs <- tokens_clean %>%
+  filter(word %in% challenge_seed) %>%
+  distinct(doc_id)
+
+tokens_challenge <- tokens_clean %>%
+  semi_join(challenge_docs, by = "doc_id")
+```
+
+```{r}
+skill_docs <- tokens_clean %>%
+  filter(word %in% skill_seed) %>%
+  distinct(doc_id)
+
+tokens_skill <- tokens_clean %>%
+  semi_join(skill_docs, by = "doc_id")
+```
+
+# TF for positive/strength-related terms
+```{r}
+tf_positive_students <- tokens_positive %>%
+  filter(participant_type == "student") %>%
+  count(word, sort = TRUE)
+
+tf_positive_students %>% slice_head(n = 20)
+```
+
+```{r}
+tf_positive_supervisors <- tokens_positive %>%
+  filter(participant_type == "supervisor") %>%
+  count(word, sort = TRUE)
+
+tf_positive_supervisors %>% slice_head(n = 20)
+```
+
+```{r}
+bind_rows(
+  tf_positive_students %>% mutate(group = "student"),
+  tf_positive_supervisors %>% mutate(group = "supervisor")
+) %>%
+  group_by(group) %>%
+  slice_max(n, n = 10) %>%
+  ungroup() %>%
+  mutate(word = reorder_within(word, n, group)) %>%
+  ggplot(aes(x = word, y = n)) +
+  geom_col() +
+  coord_flip() +
+  scale_x_reordered() +
+  facet_wrap(~ group, scales = "free_y") +
+  labs(
+    title = "Top Words in Positive/Strength-Related Contexts",
+    x = NULL,
+    y = "Term Frequency"
+  )
+```
+
+```{r}
+positive_plot <- bind_rows(
+  tf_positive_students %>% mutate(group = "student"),
+  tf_positive_supervisors %>% mutate(group = "supervisor")
+) %>%
+  group_by(group) %>%
+  slice_max(n, n = 10, with_ties = FALSE) %>%
+  ungroup() %>%
+  mutate(word = reorder_within(word, n, group)) %>%
+  ggplot(aes(x = word, y = n)) +
+  geom_col() +
+  coord_flip() +
+  scale_x_reordered() +
+  facet_wrap(~ group, scales = "free_y") +
+  labs(
+    title = "Top Words in Positive/Strength-Related Contexts",
+    x = NULL,
+    y = "Term Frequency"
+  )
+
+ggsave(
+  filename = "outputs/figures/top_words_positive_strength_contexts.png",
+  plot = positive_plot,
+  width = 8,
+  height = 6,
+  dpi = 300
+)
+```
+
+# TF for challenge-related terms
+```{r}
+tf_challenge_by_type <- tokens_clean %>%
+  filter(word %in% challenge_seed) %>%
+  count(participant_type, word, sort = TRUE)
+
+tf_challenge_top10 <- tf_challenge_by_type %>%
+  group_by(participant_type) %>%
+  slice_max(n, n = 10, with_ties = FALSE) %>%
+  ungroup()
+
+tf_challenge_top10
+```
+
+```{r}
+challenge_plot <- tf_challenge_top10 %>%
+  mutate(word = reorder_within(word, n, participant_type)) %>%
+  ggplot(aes(x = word, y = n)) +
+  geom_col() +
+  coord_flip() +
+  scale_x_reordered() +
+  facet_wrap(~ participant_type, scales = "free_y") +
+  labs(
+    title = "Top 10 Challenge-Related Words by Participant Type",
+    x = NULL,
+    y = "Term Frequency"
+  )
+
+challenge_plot
+```
+
+```{r}
+ggsave(
+  filename = "outputs/figures/top10_challenge_words_by_participant_type.png",
+  plot = challenge_plot,
+  width = 8,
+  height = 6,
+  dpi = 300
+)
+```
+
+```{r}
+write_csv(
+  tf_challenge_top10,
+  "outputs/tables/top10_challenge_words_by_participant_type.csv"
+)
+```
+
+# TF by subgroup- top words by early vs late among students
+```{r}
+tf_student_earlylate <- tokens_clean %>%
+  filter(participant_type == "student") %>%
+  count(early_late, word, sort = TRUE)
+
+tf_student_earlylate %>%
+  group_by(early_late) %>%
+  slice_max(n, n = 15) %>%
+  ungroup()
+```
+
+```{r}
+tf_student_earlylate %>%
+  group_by(early_late) %>%
+  slice_max(n, n = 10) %>%
+  ungroup() %>%
+  mutate(word = reorder_within(word, n, early_late)) %>%
+  ggplot(aes(x = word, y = n)) +
+  geom_col() +
+  coord_flip() +
+  scale_x_reordered() +
+  facet_wrap(~ early_late, scales = "free_y") +
+  labs(
+    title = "Top Words in Student Journals: Early vs Late",
+    x = NULL,
+    y = "Term Frequency"
+  )
+```
+
+```{r}
+tf_by_workmode <- tokens_clean %>%
+  count(work_mode, word, sort = TRUE)
+
+tf_by_workmode %>%
+  group_by(work_mode) %>%
+  slice_max(n, n = 15) %>%
+  ungroup()
+```
+
+```{r}
+tf_by_workmode <- tokens_clean %>%
+  filter(!is.na(work_mode), work_mode != "NA") %>%
+  count(work_mode, word, sort = TRUE)
+
+workmode_plot <- tf_by_workmode %>%
+  group_by(work_mode) %>%
+  slice_max(n, n = 10, with_ties = FALSE) %>%
+  ungroup() %>%
+  mutate(word = reorder_within(word, n, work_mode)) %>%
+  ggplot(aes(x = word, y = n)) +
+  geom_col() +
+  coord_flip() +
+  scale_x_reordered() +
+  facet_wrap(~ work_mode, scales = "free_y") +
+  labs(
+    title = "Top 10 Words by Work Mode",
+    x = NULL,
+    y = "Term Frequency"
+  )
+
+workmode_plot
+```
+
+```{r}
+ggsave(
+  filename = "outputs/figures/top10_words_by_work_mode.png",
+  plot = workmode_plot,
+  width = 8,
+  height = 6,
+  dpi = 300
+)
+```
+
+## Inductive-TF-IDF stage
+
+```{r}
+library(tidyverse)
+library(tidytext)
+library(stringr)
+library(forcats)
+
+data(stop_words)
+
+tokens <- corpus_df %>%
+  select(
+    doc_id,
+    participant_type,
+    participant_id,
+    week_number,
+    timepoint,
+    early_late,
+    cohort_year,
+    organization_name,
+    work_mode,
+    text_tf
+  ) %>%
+  unnest_tokens(word, text_tf)
+
+generic_project_words <- tibble(
+  word = c(
+    "intern", "interns", "internship", "internships", "set", "feel",
+    "student", "students", "supervisor", "supervisors", "couple", "dhis2",
+    "program", "programs", "project", "projects", "including", "wasn",
+    "organization", "team", "work", "worked", "working", "00",
+    "week", "weeks", "summer", "bit", "guys", "yeah", "so", "ll", "send",
+    "gw", "hipp", "really", "also", "would", "could", "one", "like", "just", "lot", "don", "day", "didn", "ve", "pretty", "much", "thing", "things", "know", "got", "get", "getting", "people", "time", "times", "folks", "jasmine"
+  )
+)
+
+tokens_clean <- tokens %>%
+  anti_join(stop_words, by = "word") %>%
+  anti_join(generic_project_words, by = "word")
+```
+
+# Compute by participant type
+
+```{r}
+tfidf_by_type <- tokens_clean %>%
+  count(participant_type, word, sort = TRUE) %>%
+  bind_tf_idf(word, participant_type, n) %>%
+  arrange(desc(tf_idf))
+```
+
+```{r}
+tfidf_top10_by_type <- tfidf_by_type %>%
+  group_by(participant_type) %>%
+  slice_max(tf_idf, n = 10, with_ties = FALSE) %>%
+  ungroup()
+
+tfidf_top10_by_type
+```
+
+```{r}
+tfidf_type_plot <- tfidf_top10_by_type %>%
+  mutate(word = reorder_within(word, tf_idf, participant_type)) %>%
+  ggplot(aes(x = word, y = tf_idf)) +
+  geom_col() +
+  coord_flip() +
+  scale_x_reordered() +
+  facet_wrap(~ participant_type, scales = "free_y") +
+  labs(
+    title = "Top 10 Distinctive Words by Participant Type (TF-IDF)",
+    x = NULL,
+    y = "TF-IDF"
+  )
+
+tfidf_type_plot
+```
+
+```{r}
+ggsave(
+  filename = "outputs/figures/top10_tfidf_by_participant_type.png",
+  plot = tfidf_type_plot,
+  width = 8,
+  height = 6,
+  dpi = 300
+)
+```
+
+```{r}
+write_csv(
+  tfidf_top10_by_type,
+  "outputs/tables/top10_tfidf_by_participant_type.csv"
+)
+```
+
+# Compute TF-IDF by early vs late journals
+
+```{r}
+tokens_students <- tokens_clean %>%
+  filter(participant_type == "student")
+```
+
+```{r}
+tfidf_earlylate <- tokens_students %>%
+  count(early_late, word, sort = TRUE) %>%
+  bind_tf_idf(word, early_late, n) %>%
+  arrange(desc(tf_idf))
+```
+
+```{r}
+tfidf_top10_earlylate <- tfidf_earlylate %>%
+  group_by(early_late) %>%
+  slice_max(tf_idf, n = 10, with_ties = FALSE) %>%
+  ungroup()
+
+tfidf_top10_earlylate
+```
+
+```{r}
+tfidf_earlylate_plot <- tfidf_top10_earlylate %>%
+  mutate(word = reorder_within(word, tf_idf, early_late)) %>%
+  ggplot(aes(x = word, y = tf_idf)) +
+  geom_col() +
+  coord_flip() +
+  scale_x_reordered() +
+  facet_wrap(~ early_late, scales = "free_y") +
+  labs(
+    title = "Top 10 Distinctive Words in Early vs Late Student Reflections",
+    x = NULL,
+    y = "TF-IDF"
+  )
+
+tfidf_earlylate_plot
+```
+
+```{r}
+ggsave(
+  filename = "outputs/figures/top10_tfidf_early_vs_late.png",
+  plot = tfidf_earlylate_plot,
+  width = 8,
+  height = 6,
+  dpi = 300
+)
+
+write_csv(
+  tfidf_top10_earlylate,
+  "outputs/tables/top10_tfidf_early_vs_late.csv"
+)
+```
+
+# Compute TF-IDF by work mode (wordcloud)
+```{r}
+# install.packages("ggwordcloud")
+```
+
+```{r}
+library(ggwordcloud)
+```
+
+```{r}
+tokens_workmode <- tokens_clean %>%
+  filter(!is.na(work_mode), work_mode != "NA")
+
+tfidf_workmode <- tokens_workmode %>%
+  count(work_mode, word, sort = TRUE) %>%
+  bind_tf_idf(word, work_mode, n) %>%
+  arrange(desc(tf_idf))
+
+tfidf_top10_workmode <- tfidf_workmode %>%
+  group_by(work_mode) %>%
+  slice_max(tf_idf, n = 20, with_ties = FALSE) %>%
+  ungroup()
+
+tfidf_top10_workmode
+```
+
+```{r}
+tfidf_workmode_wordcloud <- tfidf_top10_workmode %>%
+  ggplot(aes(label = word, size = tf_idf)) +
+  geom_text_wordcloud_area() +
+  facet_wrap(~ work_mode, scales = "free") +
+  scale_size_area(max_size = 18) +
+  labs(
+    title = "Top 20 Distinctive Words by Work Mode (TF-IDF Word Cloud)"
+  ) +
+  theme_minimal()
+
+tfidf_workmode_wordcloud
+```
+
+```{r}
+ggsave(
+  filename = "outputs/figures/top20_tfidf_wordcloud_by_work_mode.png",
+  plot = tfidf_workmode_wordcloud,
+  width = 10,
+  height = 6,
+  dpi = 300
+)
+```
+
+```{r}
+write_csv(
+  tfidf_top10_workmode,
+  "outputs/tables/top20_tfidf_by_work_mode.csv"
+)
+```
+
+# RQ1: TF-IDF for strength-related terms
+```{r}
+positive_seed <- c(
+  "support", "helpful", "help", "great", "good", "positive",
+  "confident", "confidence", "growth", "learning", "learned",
+  "mentorship", "mentor", "professional", "success", "successful",
+  "valuable", "meaningful", "prepared", "strong", "excited"
+)
+```
+
+```{r}
+tfidf_strength_by_type <- tokens_clean %>%
+  filter(word %in% positive_seed) %>%
+  count(participant_type, word, sort = TRUE) %>%
+  bind_tf_idf(word, participant_type, n) %>%
+  arrange(desc(tf_idf))
+```
+
+```{r}
+tfidf_strength_top10 <- tfidf_strength_by_type %>%
+  group_by(participant_type) %>%
+  slice_max(tf_idf, n = 10, with_ties = FALSE) %>%
+  ungroup()
+
+tfidf_strength_top10
+```
+
+```{r}
+tfidf_strength_plot <- tfidf_strength_top10 %>%
+  mutate(word = reorder_within(word, tf_idf, participant_type)) %>%
+  ggplot(aes(x = word, y = tf_idf)) +
+  geom_col() +
+  coord_flip() +
+  scale_x_reordered() +
+  facet_wrap(~ participant_type, scales = "free_y") +
+  labs(
+    title = "Top 10 Distinctive Strength-Related Words by Participant Type",
+    x = NULL,
+    y = "TF-IDF"
+  )
+
+tfidf_strength_plot
+```
+
+```{r}
+ggsave(
+  filename = "outputs/figures/top10_tfidf_strength_by_participant_type.png",
+  plot = tfidf_strength_plot,
+  width = 8,
+  height = 6,
+  dpi = 300
+)
+
+write_csv(
+  tfidf_strength_top10,
+  "outputs/tables/top10_tfidf_strength_by_participant_type.csv"
+)
+```
+
+```{r}
+tfidf_strength_top10 %>%
+  mutate(word = reorder_within(word, tf_idf, participant_type)) %>%
+  ggplot(aes(x = word, y = tf_idf)) +
+  geom_segment(aes(xend = word, y = 0, yend = tf_idf)) +
+  geom_point(size = 3) +
+  coord_flip() +
+  scale_x_reordered() +
+  facet_wrap(~ participant_type, scales = "free_y") +
+  labs(
+    title = "Distinctive Strength-Related Terms by Participant Type",
+    x = NULL,
+    y = "TF-IDF"
+  )
+```
+
+```{r}
+strength_lollipop_plot <- tfidf_strength_top10 %>%
+  mutate(word = reorder_within(word, tf_idf, participant_type)) %>%
+  ggplot(aes(x = word, y = tf_idf)) +
+  geom_segment(aes(xend = word, y = 0, yend = tf_idf)) +
+  geom_point(size = 3) +
+  coord_flip() +
+  scale_x_reordered() +
+  facet_wrap(~ participant_type, scales = "free_y") +
+  labs(
+    title = "Distinctive Strength-Related Terms by Participant Type",
+    x = NULL,
+    y = "TF-IDF"
+  )
+
+strength_lollipop_plot
+
+ggsave(
+  filename = "outputs/figures/distinctive_strength_terms_lollipop.png",
+  plot = strength_lollipop_plot,
+  width = 8,
+  height = 6,
+  dpi = 300
+)
+```
+
+```{r}
+tfidf_strength_top10 %>%
+  ggplot(aes(x = participant_type, y = word, fill = tf_idf)) +
+  geom_tile() +
+  labs(
+    title = "Strength-Related TF-IDF by Participant Type",
+    x = NULL,
+    y = NULL,
+    fill = "TF-IDF"
+  )
+```
+
+```{r}
+strength_heatmap <- tfidf_strength_top10 %>%
+  ggplot(aes(x = participant_type, y = word, fill = tf_idf)) +
+  geom_tile(color = "white") +
+  labs(
+    title = "Strength-Related TF-IDF by Participant Type",
+    x = NULL,
+    y = NULL,
+    fill = "TF-IDF"
+  )
+
+strength_heatmap
+```
+
+```{r}
+ggsave(
+  filename = "outputs/figures/strength_tfidf_heatmap_by_participant_type.png",
+  plot = strength_heatmap,
+  width = 7,
+  height = 6,
+  dpi = 300
+)
+```
+
+# RQ2: TF-IDF for challenge-related terms
+
+```{r}
+challenge_seed <- c(
+  "challenge", "challenges", "difficult", "difficulty", "hard",
+  "unclear", "confusing", "stress", "stressed", "workload",
+  "communication", "issue", "issues", "problem", "problems",
+  "uncertainty", "logistics", "remote", "time", "busy"
+)
+```
+
+```{r}
+tfidf_challenge_by_type <- tokens_clean %>%
+  filter(word %in% challenge_seed) %>%
+  count(participant_type, word, sort = TRUE) %>%
+  bind_tf_idf(word, participant_type, n) %>%
+  arrange(desc(tf_idf))
+```
+
+```{r}
+tfidf_challenge_top10 <- tfidf_challenge_by_type %>%
+  group_by(participant_type) %>%
+  slice_max(tf_idf, n = 10, with_ties = FALSE) %>%
+  ungroup()
+
+tfidf_challenge_top10
+```
+
+```{r}
+tfidf_challenge_plot <- tfidf_challenge_top10 %>%
+  mutate(word = reorder_within(word, tf_idf, participant_type)) %>%
+  ggplot(aes(x = word, y = tf_idf)) +
+  geom_col() +
+  coord_flip() +
+  scale_x_reordered() +
+  facet_wrap(~ participant_type, scales = "free_y") +
+  labs(
+    title = "Top 10 Distinctive Challenge-Related Words by Participant Type",
+    x = NULL,
+    y = "TF-IDF"
+  )
+
+tfidf_challenge_plot
+```
+
+```{r}
+ggsave(
+  filename = "outputs/figures/top10_tfidf_challenge_by_participant_type.png",
+  plot = tfidf_challenge_plot,
+  width = 8,
+  height = 6,
+  dpi = 300
+)
+
+write_csv(
+  tfidf_challenge_top10,
+  "outputs/tables/top10_tfidf_challenge_by_participant_type.csv"
+)
+```
+
+```{r}
+challenge_compare <- tfidf_challenge_by_type %>%
+  filter(word %in% c("uncertainty", "stress", "confusing", "hard", "busy", "remote")) %>%
+  select(participant_type, word, tf_idf)
+
+ggplot(challenge_compare, aes(x = tf_idf, y = word, color = participant_type)) +
+  geom_point(size = 3, position = position_dodge(width = 0.5)) +
+  labs(
+    title = "Challenge Language by Participant Type",
+    x = "TF-IDF",
+    y = NULL
+  )
+```
+
+```{r}
+challenge_compare <- tfidf_challenge_by_type %>%
+  filter(word %in% c("uncertainty", "stress", "confusing", "hard", "busy", "remote")) %>%
+  select(participant_type, word, tf_idf)
+
+challenge_compare_plot <- ggplot(
+  challenge_compare,
+  aes(x = tf_idf, y = word, color = participant_type)
+) +
+  geom_point(size = 3, position = position_dodge(width = 0.5)) +
+  labs(
+    title = "Challenge Language by Participant Type",
+    x = "TF-IDF",
+    y = NULL
+  )
+
+challenge_compare_plot
+
+ggsave(
+  filename = "outputs/figures/challenge_language_by_participant_type.png",
+  plot = challenge_compare_plot,
+  width = 8,
+  height = 6,
+  dpi = 300
+)
+```
+
+# 10. RQ3: skill-related language
+```{r}
+skill_seed <- c(
+  "project", "management", "data", "analysis", "communication",
+  "skills", "teamwork", "critical", "thinking", "report", "writing",
+  "leadership", "research", "presentation", "collaboration"
+)
+```
+
+```{r}
+tfidf_skill_students <- tokens_clean %>%
+  filter(participant_type == "student", word %in% skill_seed) %>%
+  count(early_late, word, sort = TRUE) %>%
+  bind_tf_idf(word, early_late, n) %>%
+  arrange(desc(tf_idf))
+```
+
+```{r}
+tfidf_skill_top10 <- tfidf_skill_students %>%
+  group_by(early_late) %>%
+  slice_max(tf_idf, n = 10, with_ties = FALSE) %>%
+  ungroup()
+
+tfidf_skill_top10
+```
+
+```{r}
+tfidf_skill_plot <- tfidf_skill_top10 %>%
+  mutate(word = reorder_within(word, tf_idf, early_late)) %>%
+  ggplot(aes(x = word, y = tf_idf)) +
+  geom_col() +
+  coord_flip() +
+  scale_x_reordered() +
+  facet_wrap(~ early_late, scales = "free_y") +
+  labs(
+    title = "Top 10 Distinctive Skill-Related Words in Early vs Late Student Journals",
+    x = NULL,
+    y = "TF-IDF"
+  )
+
+tfidf_skill_plot
+```
+
+```{r}
+ggsave(
+  filename = "outputs/figures/top10_tfidf_skill_early_vs_late.png",
+  plot = tfidf_skill_plot,
+  width = 8,
+  height = 6,
+  dpi = 300
+)
+
+write_csv(
+  tfidf_skill_top10,
+  "outputs/tables/top10_tfidf_skill_early_vs_late.csv"
+)
+```
+
+# RQ4: TF-IDF by subgroup
+```{r}
+tfidf_by_org <- tokens_clean %>%
+  count(organization_name, word, sort = TRUE) %>%
+  bind_tf_idf(word, organization_name, n) %>%
+  arrange(desc(tf_idf))
+
+tfidf_top10_by_org <- tfidf_by_org %>%
+  group_by(organization_name) %>%
+  slice_max(tf_idf, n = 10, with_ties = FALSE) %>%
+  ungroup()
+```
+
+```{r}
+tfidf_org_plot <- tfidf_top10_by_org %>%
+  mutate(word = reorder_within(word, tf_idf, organization_name)) %>%
+  ggplot(aes(x = word, y = tf_idf)) +
+  geom_col() +
+  coord_flip() +
+  scale_x_reordered() +
+  facet_wrap(~ organization_name, scales = "free_y") +
+  labs(
+    title = "Top 10 Distinctive Words by Organization",
+    x = NULL,
+    y = "TF-IDF"
+  )
+
+tfidf_org_plot
+```
+
+```{r}
+ggsave(
+  filename = "outputs/figures/top10_tfidf_by_organization.png",
+  plot = tfidf_org_plot,
+  width = 10,
+  height = 8,
+  dpi = 300
+)
+
+write_csv(
+  tfidf_top10_by_org,
+  "outputs/tables/top10_tfidf_by_organization.csv"
+)
+```
+
+```{r}
+tfidf_by_type <- tokens_clean %>%
+  count(participant_type, word, sort = TRUE) %>%
+  bind_tf_idf(word, participant_type, n) %>%
+  arrange(desc(tf_idf))
+
+tfidf_top10_by_type <- tfidf_by_type %>%
+  group_by(participant_type) %>%
+  slice_max(tf_idf, n = 10, with_ties = FALSE) %>%
+  ungroup()
+
+tfidf_top10_by_type
+```
+
+```{r}
+word_compare <- tokens_clean %>%
+  count(participant_type, word) %>%
+  filter(participant_type %in% c("student", "supervisor")) %>%
+  pivot_wider(names_from = participant_type, values_from = n, values_fill = 0)
+
+ggplot(word_compare, aes(x = student + 1, y = supervisor + 1)) +
+  geom_point(alpha = 0.5) +
+  scale_x_log10() +
+  scale_y_log10() +
+  labs(
+    title = "Word Frequency in Student vs Supervisor Texts",
+    x = "Student Frequency (log scale)",
+    y = "Supervisor Frequency (log scale)"
+  )
+```
+
+```{r}
+word_compare <- tokens_clean %>%
+  count(participant_type, word) %>%
+  filter(participant_type %in% c("student", "supervisor")) %>%
+  pivot_wider(names_from = participant_type, values_from = n, values_fill = 0)
+
+word_compare_plot <- ggplot(word_compare, aes(x = student + 1, y = supervisor + 1)) +
+  geom_point(alpha = 0.5) +
+  scale_x_log10() +
+  scale_y_log10() +
+  labs(
+    title = "Word Frequency in Student vs Supervisor Texts",
+    x = "Student Frequency (log scale)",
+    y = "Supervisor Frequency (log scale)"
+  )
+
+word_compare_plot
+
+ggsave(
+  filename = "outputs/figures/word_frequency_student_vs_supervisor.png",
+  plot = word_compare_plot,
+  width = 8,
+  height = 6,
+  dpi = 300
+)
+```
+
+```{r}
+word_compare_plot <- ggplot(word_compare, aes(x = student + 1, y = supervisor + 1)) +
+  geom_abline(slope = 1, intercept = 0, linetype = "dashed") +
+  geom_point(alpha = 0.5) +
+  scale_x_log10() +
+  scale_y_log10() +
+  labs(
+    title = "Word Frequency in Student vs Supervisor Texts",
+    x = "Student Frequency (log scale)",
+    y = "Supervisor Frequency (log scale)"
+  )
 ```
