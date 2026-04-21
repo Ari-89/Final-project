@@ -2276,3 +2276,284 @@ ggsave(
   dpi = 300
 )
 ```
+
+## Inductive- LDA topic modeling stage
+
+```{r}
+# Tokenize text_lda
+lda_tokens <- corpus_df %>%
+  select(
+    doc_id,
+    participant_type,
+    early_late,
+    work_mode,
+    cohort_year,
+    organization_name,
+    text_lda
+  ) %>%
+  unnest_tokens(word, text_lda)
+```
+
+```{r}
+# Remove stopwords and generic words
+data(stop_words)
+
+generic_project_words <- tibble(
+  word = c(
+    "intern", "interns", "internship", "internships",
+    "student", "students", "supervisor", "supervisors",
+    "program", "project", "projects",
+    "organization", "team", "work", "worked", "working",
+    "week", "weeks", "summer",
+    "gw", "hipp"
+  )
+)
+
+lda_tokens_clean <- lda_tokens %>%
+  anti_join(stop_words, by = "word") %>%
+  anti_join(generic_project_words, by = "word")
+```
+
+```{r}
+# Remove very rare and very common terms
+term_doc_counts <- lda_tokens_clean %>%
+  distinct(doc_id, word) %>%
+  count(word, name = "doc_freq")
+
+lda_tokens_filtered <- lda_tokens_clean %>%
+  left_join(term_doc_counts, by = "word") %>%
+  filter(doc_freq >= 3)
+```
+
+```{r}
+# Run LDA on all journals
+# Filter to journals only
+lda_journals <- lda_tokens_filtered %>%
+  filter(participant_type == "student")
+```
+
+```{r}
+# Run LDA on all journals
+# Create document-term matrix
+dtm_journals <- lda_journals %>%
+  count(doc_id, word) %>%
+  cast_dtm(document = doc_id, term = word, value = n)
+```
+
+```{r}
+# Run LDA on all journals
+# Choose number of topics
+set.seed(1234)
+
+lda_journals_model <- LDA(dtm_journals, k = 6, control = list(seed = 1234))
+```
+
+```{r}
+# Extract top words per topic for journals
+# Get topic-word probabilities
+journal_topic_terms <- tidy(lda_journals_model, matrix = "beta")
+```
+
+```{r}
+# Extract top words per topic for journals
+# Get top 10 words per topic
+journal_top_terms <- journal_topic_terms %>%
+  group_by(topic) %>%
+  slice_max(beta, n = 10, with_ties = FALSE) %>%
+  ungroup()
+
+journal_top_terms
+```
+
+# Visualize top words per journal topic
+```{r}
+journal_topic_plot <- journal_top_terms %>%
+  mutate(term = reorder_within(term, beta, topic)) %>%
+  ggplot(aes(x = term, y = beta)) +
+  geom_col() +
+  coord_flip() +
+  scale_x_reordered() +
+  facet_wrap(~ topic, scales = "free_y") +
+  labs(
+    title = "Top Words per Topic: Student Journals",
+    x = NULL,
+    y = "Topic-word probability (beta)"
+  )
+
+journal_topic_plot
+```
+
+```{r}
+ggsave(
+  filename = "outputs/figures/lda_top_words_journals.png",
+  plot = journal_topic_plot,
+  width = 10,
+  height = 8,
+  dpi = 300
+)
+```
+
+```{r}
+write_csv(
+  journal_top_terms,
+  "outputs/tables/lda_top_words_journals.csv"
+)
+```
+
+```{r}
+# Interpret and label journal topics
+journal_topic_labels <- tibble(
+  topic = 1:6,
+  candidate_label = c(
+    "Mentorship / support",
+    "Workload / challenges",
+    "Professional growth",
+    "Communication / supervision",
+    "Meaningful work",
+    "Adjustment / confidence"
+  )
+)
+
+journal_topic_labels
+```
+
+```{r}
+write_csv(
+  journal_topic_labels,
+  "outputs/tables/lda_topic_labels_journals.csv"
+)
+```
+
+```{r}
+# Topic prevalence in journals (estimate how much each document belongs to each topic)
+# Get document-topic probabilities
+journal_topic_gamma <- tidy(lda_journals_model, matrix = "gamma")
+```
+
+```{r}
+# Topic prevalence in journals (estimate how much each document belongs to each topic)
+# Join metadata
+journal_topic_gamma_meta <- journal_topic_gamma %>%
+  rename(doc_id = document) %>%
+  left_join(
+    corpus_df %>% select(doc_id, participant_type, early_late, work_mode, cohort_year, organization_name),
+    by = "doc_id"
+  ) %>%
+  left_join(journal_topic_labels, by = "topic")
+
+journal_topic_gamma_meta
+```
+
+```{r}
+# Heatmap version for subgroup comparison (the best RQ4 figure)
+# Early vs late heatmap
+topic_by_earlylate <- journal_topic_gamma_meta %>%
+  group_by(early_late, candidate_label) %>%
+  summarize(mean_gamma = mean(gamma, na.rm = TRUE), .groups = "drop") %>%
+  mutate(candidate_label = factor(candidate_label, levels = journal_topic_labels$candidate_label))
+
+topic_earlylate_heatmap <- topic_by_earlylate %>%
+  ggplot(aes(x = early_late, y = candidate_label, fill = mean_gamma)) +
+  geom_tile(color = "white") +
+  labs(
+    title = "Topic Prevalence Heatmap: Early vs Late Journals",
+    x = NULL,
+    y = NULL,
+    fill = "Mean gamma"
+  ) +
+  scale_fill_viridis_c(option = "magma") +
+  theme_minimal()
+
+topic_earlylate_heatmap
+```
+
+```{r}
+ggsave(
+  filename = "outputs/figures/lda_topic_heatmap_early_vs_late.png",
+  plot = topic_earlylate_heatmap,
+  width = 8,
+  height = 6,
+  dpi = 300
+)
+```
+
+```{r}
+# Run LDA on supervisor interviews
+# Filter to supervisors
+lda_supervisors <- lda_tokens_filtered %>%
+  filter(participant_type == "supervisor")
+
+# Create DTM
+dtm_supervisors <- lda_supervisors %>%
+  count(doc_id, word) %>%
+  cast_dtm(document = doc_id, term = word, value = n)
+
+# Fit model
+set.seed(1234)
+
+lda_supervisors_model <- LDA(dtm_supervisors, k = 4, control = list(seed = 1234))
+```
+
+# Extract and visualize supervisor topics
+
+```{r}
+# Top words
+supervisor_topic_terms <- tidy(lda_supervisors_model, matrix = "beta")
+
+supervisor_top_terms <- supervisor_topic_terms %>%
+  group_by(topic) %>%
+  slice_max(beta, n = 10, with_ties = FALSE) %>%
+  ungroup()
+
+supervisor_top_terms
+```
+
+```{r}
+supervisor_topic_plot <- supervisor_top_terms %>%
+  mutate(term = reorder_within(term, beta, topic)) %>%
+  ggplot(aes(x = term, y = beta)) +
+  geom_col() +
+  coord_flip() +
+  scale_x_reordered() +
+  facet_wrap(~ topic, scales = "free_y") +
+  labs(
+    title = "Top Words per Topic: Supervisor Interviews",
+    x = NULL,
+    y = "Topic-word probability (beta)"
+  )
+
+supervisor_topic_plot
+```
+
+```{r}
+ggsave(
+  filename = "outputs/figures/lda_top_words_supervisors.png",
+  plot = supervisor_topic_plot,
+  width = 10,
+  height = 7,
+  dpi = 300
+)
+
+write_csv(
+  supervisor_top_terms,
+  "outputs/tables/lda_top_words_supervisors.csv"
+)
+```
+
+```{r}
+# Create a label table after inspecting terms.
+supervisor_topic_labels <- tibble(
+  topic = 1:4,
+  candidate_label = c(
+    "Professional readiness",
+    "Supervision structure",
+    "Resource constraints",
+    "Positive contribution / fit"
+  )
+)
+
+write_csv(
+  supervisor_topic_labels,
+  "outputs/tables/lda_topic_labels_supervisors.csv"
+)
+```
