@@ -1,0 +1,20 @@
+participant_type,entity,n
+student,donor,34
+student,supervisor,26
+student,staff,15
+student,leadership,11
+student,board,1
+student,hr,1
+student,team lead,1
+supervisor,staff,13
+supervisor,director,6
+supervisor,manager,6
+supervisor,supervisor,5
+supervisor,board,3
+supervisor,leadership,3
+supervisor,colleague,2
+supervisor,ceo,1
+supervisor,coordinator,1
+supervisor,donor,1
+supervisor,executive,1
+supervisor,hr,1

@@ -4,6 +4,8 @@ author: "Ariunjargal Khaltarkhuu"
 date: today
 format: pdf
 editor: source
+python:
+  executable: "/opt/anaconda3/envs/textmining/bin/python"
 ---
 # Install and Load Packages
 
@@ -1810,4 +1812,467 @@ ggsave(
 strength_phrases
 challenge_phrases
 skill_phrases
+```
+
+## Inductive- NER stage (Python)
+
+```{r}
+library(reticulate)
+
+use_python("/opt/anaconda3/envs/textmining/bin/python", required = TRUE)
+py_config()
+```
+
+```{r}
+py_install(c("spacy", "pandas", "matplotlib"), pip = TRUE)
+```
+
+```{r}
+py <- py_config()$python
+system2(py, c("-m", "spacy", "download", "en_core_web_sm"))
+```
+
+```{r}
+spacy <- import("spacy")
+nlp <- spacy$load("en_core_web_sm")
+print("spaCy model loaded successfully")
+```
+
+```{r}
+ner_input <- corpus_df %>%
+  select(
+    doc_id,
+    participant_type,
+    participant_id,
+    early_late,
+    work_mode,
+    cohort_year,
+    organization_name,
+    text_ner
+  )
+
+write_csv(ner_input, "outputs/ner_input.csv")
+```
+
+```{r}
+file.exists("outputs/ner_input.csv")
+```
+
+```{python}
+import pandas as pd
+import spacy
+import re
+
+nlp = spacy.load("en_core_web_sm")
+
+df = pd.read_csv("outputs/ner_input.csv")
+df.head()
+```
+
+```{python}
+# Define evaluative context vocabularies
+positive_words = {
+    "support", "supportive", "help", "helpful", "great", "good", "excellent",
+    "strong", "valuable", "meaningful", "prepared", "professional",
+    "confident", "confidence", "growth", "learned", "learning",
+    "successful", "success", "amazing", "positive",
+    "gained", "strengthened", "insight", "understanding", "developed",
+    "improved", "better", "clearer", "deeper", "responsive",
+    "available", "encouraged", "encouraging"
+}
+
+challenge_words = {
+    "challenge", "challenging", "difficult", "difficulty", "hard",
+    "unclear", "confusing", "issue", "issues", "problem", "problems",
+    "stress", "stressed", "workload", "pressure", "busy", "remote",
+    "barrier", "barriers", "uncertainty", "limited",
+    "encountered", "delay", "delays", "restructure", "restructuring",
+    "cut", "cuts", "changed", "change", "demanding", "constraint",
+    "constraints", "overwhelming", "lack"
+}
+
+support_actor_words = {
+    "support", "help", "helpful", "guidance", "mentor", "mentorship",
+    "encourage", "encouraged", "encouraging", "available", "responsive",
+    "clear", "feedback", "check", "check-in", "checkins", "supervision",
+    "welcoming", "professional", "prepared", "collaborative"
+}
+
+barrier_actor_words = {
+    "unclear", "delay", "delays", "limited", "busy", "pressure",
+    "uncertainty", "restructure", "restructuring", "cut", "cuts", "remote",
+    "challenging", "issue", "issues", "problem", "problems",
+    "lack", "barrier", "barriers", "overwhelming", "changed", "absence"
+}
+
+skill_words = {
+    "analysis", "analytical", "data", "research", "writing", "report",
+    "reporting", "communication", "presentation", "management",
+    "monitoring", "evaluation", "coordination", "organization",
+    "organizational", "leadership", "teamwork", "collaboration",
+    "critical", "thinking", "problem", "solving", "skills",
+    "responsibilities", "developed", "strengthened", "ability"
+}
+```
+
+```{python}
+# Add rule-based institutional actor patterns
+role_patterns = [
+    r"\bsupervisor\b",
+    r"\bmanager\b",
+    r"\bdirector\b",
+    r"\bcoordinator\b",
+    r"\bteam lead\b",
+    r"\bleadership\b",
+    r"\bstaff\b",
+    r"\bdonor\b",
+    r"\bcolleague\b",
+    r"\bexecutive\b",
+    r"\bboard\b",
+    r"\bmentor\b",
+    r"\bhr\b",
+    r"\bceo\b"
+]
+```
+
+```{python}
+#Extract entities and nearby evaluative context
+rows = []
+
+for _, row in df.iterrows():
+    doc_id = row["doc_id"]
+    participant_type = row["participant_type"]
+    early_late = row["early_late"]
+    work_mode = row["work_mode"]
+    cohort_year = row["cohort_year"]
+    text = str(row["text_ner"])
+
+    doc = nlp(text)
+
+    # spaCy entities
+    for ent in doc.ents:
+        if ent.label_ in {"ORG", "GPE", "LOC", "PERSON"}:
+            start = max(ent.start - 5, 0)
+            end = min(ent.end + 5, len(doc))
+            window_tokens = [t.text.lower() for t in doc[start:end]]
+            window_text = " ".join(window_tokens)
+
+            pos_flag = any(w in window_tokens for w in positive_words)
+            chal_flag = any(w in window_tokens for w in challenge_words)
+            support_flag = any(w in window_tokens for w in support_actor_words)
+            barrier_flag = any(w in window_tokens for w in barrier_actor_words)
+
+            rows.append({
+                "doc_id": doc_id,
+                "participant_type": participant_type,
+                "early_late": early_late,
+                "work_mode": work_mode,
+                "cohort_year": cohort_year,
+                "entity": ent.text,
+                "entity_label": ent.label_,
+                "window_text": window_text,
+                "positive_context": int(pos_flag),
+                "challenge_context": int(chal_flag),
+                "support_context": int(support_flag),
+                "barrier_context": int(barrier_flag)
+            })
+
+    # rule-based institutional actors
+    lowered = text.lower()
+    for pattern in role_patterns:
+        for match in re.finditer(pattern, lowered):
+            role = match.group(0)
+            window_start = max(match.start() - 40, 0)
+            window_end = min(match.end() + 40, len(lowered))
+            window_text = lowered[window_start:window_end]
+
+            pos_flag = any(w in window_text for w in positive_words)
+            chal_flag = any(w in window_text for w in challenge_words)
+            support_flag = any(w in window_text for w in support_actor_words)
+            barrier_flag = any(w in window_text for w in barrier_actor_words)
+
+            rows.append({
+                "doc_id": doc_id,
+                "participant_type": participant_type,
+                "early_late": early_late,
+                "work_mode": work_mode,
+                "cohort_year": cohort_year,
+                "entity": role,
+                "entity_label": "ROLE",
+                "window_text": window_text,
+                "positive_context": int(pos_flag),
+                "challenge_context": int(chal_flag),
+                "support_context": int(support_flag),
+                "barrier_context": int(barrier_flag)
+            })
+
+entities = pd.DataFrame(rows)
+entities.head()
+```
+
+```{python}
+entities["entity"] = (
+    entities["entity"]
+    .str.strip()
+    .str.replace(r"\s+", " ", regex=True)
+)
+
+# Optional: standardize some variants
+entities["entity"] = entities["entity"].replace({
+    "gw": "GWU",
+    "gwu": "GWU",
+    "world central kitchen": "World Central Kitchen",
+    "project hope": "Project Hope",
+    "save the children": "Save the Children",
+    "relief international": "Relief International",
+    "care": "CARE"
+})
+```
+
+```{python}
+entities.to_csv("outputs/ner_entities_full.csv", index=False)
+```
+
+# Create summary tables 
+```{python}
+# Top organizations by participant type
+org_by_type = (
+    entities[entities["entity_label"] == "ORG"]
+    .groupby(["participant_type", "entity"])
+    .size()
+    .reset_index(name="n")
+    .sort_values(["participant_type", "n"], ascending=[True, False])
+)
+
+org_by_type.to_csv("outputs/ner_org_by_participant_type.csv", index=False)
+org_by_type.head(20)
+```
+
+```{python}
+# Top places by subgroup
+place_by_subgroup = (
+    entities[entities["entity_label"].isin(["GPE", "LOC"])]
+    .groupby(["work_mode", "entity"])
+    .size()
+    .reset_index(name="n")
+    .sort_values(["work_mode", "n"], ascending=[True, False])
+)
+
+place_by_subgroup.to_csv("outputs/ner_places_by_work_mode.csv", index=False)
+place_by_subgroup.head(20)
+```
+
+```{python}
+# Institutional actors with support/barrier context
+roles_context = (
+    entities[entities["entity_label"] == "ROLE"]
+    .groupby("entity")[["support_context", "barrier_context", "positive_context", "challenge_context"]]
+    .sum()
+    .reset_index()
+    .sort_values("support_context", ascending=False)
+)
+
+roles_context.to_csv("outputs/ner_roles_context.csv", index=False)
+roles_context.head(20)
+```
+
+```{python}
+# For RQ1 specific output
+# Organizations mentioned in positive contexts
+org_positive = (
+    entities[(entities["entity_label"] == "ORG") & (entities["positive_context"] == 1)]
+    .groupby("entity")
+    .size()
+    .reset_index(name="n")
+    .sort_values("n", ascending=False)
+)
+
+org_positive.to_csv("outputs/ner_org_positive_context.csv", index=False)
+org_positive.head(20)
+```
+
+```{python}
+# For RQ1 specific output
+# Institutional actors in positive/support contexts
+role_positive = (
+    entities[(entities["entity_label"] == "ROLE") & ((entities["positive_context"] == 1) | (entities["support_context"] == 1))]
+    .groupby("entity")
+    .size()
+    .reset_index(name="n")
+    .sort_values("n", ascending=False)
+)
+
+role_positive.to_csv("outputs/ner_roles_positive_context.csv", index=False)
+role_positive.head(20)
+```
+
+```{python}
+# For RQ4 specific output
+# Organizations by work mode
+org_by_workmode = (
+    entities[entities["entity_label"] == "ORG"]
+    .groupby(["work_mode", "entity"])
+    .size()
+    .reset_index(name="n")
+    .sort_values(["work_mode", "n"], ascending=[True, False])
+)
+
+org_by_workmode.to_csv("outputs/ner_org_by_work_mode.csv", index=False)
+```
+
+```{python}
+# For RQ4 specific output
+# Locations by early/late
+place_by_earlylate = (
+    entities[entities["entity_label"].isin(["GPE", "LOC"])]
+    .groupby(["early_late", "entity"])
+    .size()
+    .reset_index(name="n")
+    .sort_values(["early_late", "n"], ascending=[True, False])
+)
+
+place_by_earlylate.to_csv("outputs/ner_places_by_earlylate.csv", index=False)
+```
+
+```{python}
+# For RQ4 specific output
+# Roles by subgroup
+roles_by_type = (
+    entities[entities["entity_label"] == "ROLE"]
+    .groupby(["participant_type", "entity"])
+    .size()
+    .reset_index(name="n")
+    .sort_values(["participant_type", "n"], ascending=[True, False])
+)
+
+roles_by_type.to_csv("outputs/ner_roles_by_participant_type.csv", index=False)
+```
+
+# Visualization code in Python
+
+```{python}
+import os
+import matplotlib.pyplot as plt
+```
+```{python}
+# Top organizations by participant type
+
+top_org_by_type = (
+    org_by_type
+    .sort_values(["participant_type", "n"], ascending=[True, False])
+    .groupby("participant_type")
+    .head(10)
+    .copy()
+)
+
+for group in top_org_by_type["participant_type"].dropna().unique():
+    subset = (
+        top_org_by_type[top_org_by_type["participant_type"] == group]
+        .sort_values("n")
+    )
+
+    plt.figure(figsize=(8, 5))
+    plt.barh(subset["entity"], subset["n"])
+    plt.title(f"Top Organizations Mentioned: {group}")
+    plt.xlabel("Count")
+    plt.ylabel("")
+    plt.tight_layout()
+    plt.savefig(f"outputs/figures/ner_top_org_{group}.png", dpi=300, bbox_inches="tight")
+    plt.close()
+```
+
+```{python}
+# Top places by work mode
+
+top_places_workmode = (
+    place_by_subgroup
+    .dropna(subset=["work_mode"])
+    .sort_values(["work_mode", "n"], ascending=[True, False])
+    .groupby("work_mode")
+    .head(10)
+    .copy()
+)
+
+for mode in top_places_workmode["work_mode"].unique():
+    subset = (
+        top_places_workmode[top_places_workmode["work_mode"] == mode]
+        .sort_values("n")
+    )
+
+    safe_mode = str(mode).replace(" ", "_").replace("/", "_")
+
+    plt.figure(figsize=(8, 5))
+    plt.barh(subset["entity"], subset["n"])
+    plt.title(f"Top Place Mentions: {mode}")
+    plt.xlabel("Count")
+    plt.ylabel("")
+    plt.tight_layout()
+    plt.savefig(f"outputs/figures/ner_top_places_{safe_mode}.png", dpi=300, bbox_inches="tight")
+    plt.close()
+```
+
+```{python}
+# Institutional actors: support vs barrier
+
+top_roles = (
+    roles_context
+    .sort_values("support_context", ascending=False)
+    .head(10)
+    .copy()
+    .sort_values("support_context")
+)
+
+plt.figure(figsize=(9, 6))
+plt.barh(top_roles["entity"], top_roles["support_context"], label="Support")
+plt.barh(
+    top_roles["entity"],
+    top_roles["barrier_context"],
+    left=top_roles["support_context"],
+    label="Barrier"
+)
+plt.title("Institutional Actors Associated with Support and Barriers")
+plt.xlabel("Context Count")
+plt.ylabel("")
+plt.legend()
+plt.tight_layout()
+plt.savefig("outputs/figures/ner_roles_support_barrier.png", dpi=300, bbox_inches="tight")
+plt.close()
+```
+
+# Optional heatmap
+```{r}
+roles_context <- read_csv("outputs/ner_roles_context.csv")
+```
+
+```{r}
+roles_context_long <- roles_context %>%
+  pivot_longer(
+    cols = c(support_context, barrier_context, positive_context, challenge_context),
+    names_to = "context_type",
+    values_to = "count"
+  )
+```
+
+```{r}
+roles_context_heatmap <- roles_context_long %>%
+  ggplot(aes(x = context_type, y = entity, fill = count)) +
+  geom_tile(color = "white") +
+  labs(
+    title = "Institutional Actors by Evaluative Context",
+    x = NULL,
+    y = NULL,
+    fill = "Count"
+  )
+
+roles_context_heatmap
+```
+
+```{r}
+ggsave(
+  filename = "outputs/figures/ner_roles_context_heatmap.png",
+  plot = roles_context_heatmap,
+  width = 8,
+  height = 6,
+  dpi = 300
+)
 ```

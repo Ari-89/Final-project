@@ -1,0 +1,404 @@
+doc_id,participant_type,early_late,work_mode,cohort_year,entity,entity_label,window_text,positive_context,challenge_context,support_context,barrier_context
+stu_01_wk02,student,early,hybrid,2025.0,DHIS2,ORG,’s data management tool ( dhis2 ) . the key insight,1,0,0,0
+stu_01_wk02,student,early,hybrid,2025.0,NCD,ORG,indicators for noncommunicable diseases ( ncd ) and rmnch programs .,0,0,0,0
+stu_01_wk02,student,early,hybrid,2025.0,supervisor,ROLE,d begin work and how to connect with my supervisor. i addressed this by sending follow-up ,0,0,0,0
+stu_01_wk02,student,early,hybrid,2025.0,hr,ROLE,"s by sending follow-up emails to senior hr, and the issue was resolved. my priorit",0,1,0,1
+stu_01_wk04,student,early,hybrid,2025.0,MEL,ORG,participated in mel team meetings to improve top,0,0,0,0
+stu_01_wk04,student,early,hybrid,2025.0,Ghana,GPE,to explore potential collaboration in ghana . a key insight was,1,0,0,0
+stu_01_wk04,student,early,hybrid,2025.0,MEL,ORG,weeks include working with the mel team to further improve top,0,0,0,0
+stu_01_wk04,student,early,hybrid,2025.0,donor,ROLE,of measurement are defined according to donor reporting criteria compared to standard,0,0,0,0
+stu_01_wk06,student,late,hybrid,2025.0,RMNCH,ORG,"level indicators including hiv , rmnch , ncds , and mhpss",0,0,0,0
+stu_01_wk06,student,late,hybrid,2025.0,Ensign Global University,ORG,i will facilitate engagement between ensign global university and project hope to support,1,0,1,0
+stu_01_wk06,student,late,hybrid,2025.0,donor,ROLE,s are defined and tailored according to donor reporting criteria while aligning with ,0,0,0,0
+stu_01_wk06,student,late,hybrid,2025.0,donor,ROLE, measurement methodologies aligned with donor standards. i also plan to complete intr,0,0,0,0
+stu_01_wk08,student,late,hybrid,2025.0,M&E Fundamentals,ORG,"and evaluation courses , including m&e fundamentals , data quality , data",0,0,0,0
+stu_01_wk08,student,late,hybrid,2025.0,Data Quality,ORG,", including m&e fundamentals , data quality , data use for program",0,0,0,0
+stu_01_wk08,student,late,hybrid,2025.0,Data Visualization,ORG,"for program managers , and data visualization on the usaid global health",0,0,0,0
+stu_01_wk08,student,late,hybrid,2025.0,the USAID Global Health Learning Center,ORG,", and data visualization on the usaid global health learning center platform . these courses strengthened",1,0,0,0
+stu_01_wk08,student,late,hybrid,2025.0,USAID,ORG,developed by organizations such as usaid and un agencies represent gold,1,0,0,0
+stu_01_wk08,student,late,hybrid,2025.0,UN,ORG,organizations such as usaid and un agencies represent gold standards in,0,0,0,0
+stu_01_wk08,student,late,hybrid,2025.0,Knowledge Management in Global Health Programs,ORG,"and evaluation courses , including knowledge management in global health programs and data use for program",0,0,0,0
+stu_01_wk08,student,late,hybrid,2025.0,Ensign Global University,ORG,", and support engagement between ensign global university and project hope .",1,0,1,0
+stu_01_wk08,student,late,hybrid,2025.0,donor,ROLE,s are defined and tailored according to donor reporting criteria while aligning with ,0,0,0,0
+stu_01_wk10,student,late,hybrid,2025.0,M&E Fundamentals,ORG,"and evaluation courses , including m&e fundamentals , data quality , data",0,0,0,0
+stu_01_wk10,student,late,hybrid,2025.0,Data Quality,ORG,", including m&e fundamentals , data quality , data use for program",0,0,0,0
+stu_01_wk10,student,late,hybrid,2025.0,Data Visualization,ORG,"for program managers , and data visualization on the usaid global health",0,0,0,0
+stu_01_wk10,student,late,hybrid,2025.0,the USAID Global Health Learning Center,ORG,", and data visualization on the usaid global health learning center platform . these courses strengthened",1,0,0,0
+stu_01_wk10,student,late,hybrid,2025.0,Project HOPE,ORG,"describing my internship journey at project hope , which will be shared",0,0,0,0
+stu_01_wk10,student,late,hybrid,2025.0,donor,ROLE,s are defined and tailored according to donor reporting criteria while aligning with ,0,0,0,0
+stu_02_wk02,student,early,remote,2025.0,Began,PERSON,about potential grant opportunities . began drafting an emergency funding brief,0,0,0,0
+stu_02_wk02,student,early,remote,2025.0,supervisor,ROLE, continue regular communication with my supervisor. we have established a consistent call ,0,0,0,0
+stu_02_wk04,student,early,remote,2025.0,Capitol Hill,ORG,"attended a public event on capitol hill related to humanitarian assistance ,",0,0,0,0
+stu_02_wk04,student,early,remote,2025.0,"Washington, DC",GPE,"connections with staff based in washington , dc to deepen professional relationships and",1,0,1,0
+stu_02_wk04,student,early,remote,2025.0,supervisor,ROLE,d multiple excel reorganizations for my supervisor and team. i also contributed more activ,0,0,0,0
+stu_02_wk04,student,early,remote,2025.0,leadership,ROLE,et that received positive feedback from leadership. i plan to build stronger connections w,1,0,1,0
+stu_02_wk04,student,early,remote,2025.0,staff,ROLE,"plan to build stronger connections with staff based in washington, dc to deepen profe",1,0,0,0
+stu_02_wk06,student,late,remote,2025.0,supervisor,ROLE,"s period, and regular check-ins with my supervisor helped maintain clarity and direction. ",1,0,1,0
+stu_02_wk06,student,late,remote,2025.0,donor,ROLE,ach materials designed specifically for donor engagement. identified a new funding op,0,0,0,0
+stu_02_wk08,student,late,remote,2025.0,supervisor,ROLE,"work i have built, particularly with my supervisor. i also aim to complete an intern handb",0,0,0,0
+stu_02_wk10,student,late,remote,2025.0,supervisor,ROLE,"allenge was the temporary absence of my supervisor during her annual leave, which made the",0,0,0,1
+stu_02_wk10,student,late,remote,2025.0,supervisor,ROLE,"al. however, regular check-ins with her supervisor provided continued guidance and support",1,0,1,0
+stu_02_wk10,student,late,remote,2025.0,leadership,ROLE,al corporate partnerships to the senior leadership team and received positive feedback on ,1,0,1,0
+stu_03_wk02,student,early,hybrid,2025.0,Safety and Security,ORG,actively to projects within the safety and security team as new activations arise,0,0,0,0
+stu_03_wk04,student,early,hybrid,2025.0,Iran,GPE,"global events , including the iran – israel conflict and the",0,0,0,0
+stu_03_wk04,student,early,hybrid,2025.0,Israel,GPE,", including the iran – israel conflict and the aftermath of",0,0,0,0
+stu_03_wk04,student,early,hybrid,2025.0,staff,ROLE,ork by conducting interviews with field staff to gather feedback and practical insigh,0,0,1,0
+stu_03_wk06,student,late,hybrid,2025.0,Iran,GPE,"global events , including the iran – israel conflict and the",0,0,0,0
+stu_03_wk06,student,late,hybrid,2025.0,Israel,GPE,", including the iran – israel conflict and the aftermath of",0,0,0,0
+stu_03_wk06,student,late,hybrid,2025.0,Gaza,GPE,safety and security incidents in gaza . i continued building confidence,1,0,0,0
+stu_03_wk08,student,late,hybrid,2025.0,Iran,GPE,"global events , including the iran – israel conflict and the",0,0,0,0
+stu_03_wk08,student,late,hybrid,2025.0,Israel,GPE,", including the iran – israel conflict and the aftermath of",0,0,0,0
+stu_03_wk08,student,late,hybrid,2025.0,"Washington, DC",GPE,"a community in need in washington , dc . i gained greater confidence",1,0,0,0
+stu_03_wk08,student,late,hybrid,2025.0,staff,ROLE,"travel toolkit, and continue supporting staff with daily security briefings.",1,0,1,0
+stu_03_wk10,student,late,hybrid,2025.0,Iran,GPE,"global events , including the iran – israel conflict and the",0,0,0,0
+stu_03_wk10,student,late,hybrid,2025.0,Israel,GPE,", including the iran – israel conflict and the aftermath of",0,0,0,0
+stu_03_wk10,student,late,hybrid,2025.0,"Washington, DC",GPE,"project supporting a community in washington , dc , which successfully provided meals",0,0,0,0
+stu_03_wk10,student,late,hybrid,2025.0,staff,ROLE,mpleted toolkit and continue supporting staff with daily security briefings.,1,0,1,0
+stu_04_wk02,student,early,hybrid,2025.0,staff,ROLE,"i focused on meeting staff across departments, understanding organ",1,0,0,0
+stu_04_wk06,student,late,hybrid,2025.0,staff,ROLE,"oned presenting them. with support from staff, i gained clarity and improved efficien",1,0,1,0
+stu_04_wk08,student,late,hybrid,2025.0,LinkedIn,ORG,and supported professional communication through linkedin management . a meaningful experience,1,0,1,0
+stu_04_wk10,student,late,hybrid,2025.0,LinkedIn,ORG,and supported professional communication through linkedin management . i plan to,1,0,1,0
+stu_05_wk02,student,early,hybrid,2025.0,supervisor,ROLE,"ely clarifying responsibilities with my supervisor, which led to planning meetings to defi",0,0,0,0
+stu_05_wk04,student,early,hybrid,2025.0,Mexico,GPE,the community outreach team in mexico by organizing contact information into,0,0,0,0
+stu_05_wk04,student,early,hybrid,2025.0,supervisor,ROLE,addressed this by communicating with my supervisor to clarify expectations regarding respo,0,0,0,0
+stu_05_wk06,student,late,hybrid,2025.0,"Washington, DC",GPE,"organizing a real activation in washington , dc to support a community in",1,0,1,0
+stu_05_wk06,student,late,hybrid,2025.0,supervisor,ROLE,aining consistent communication with my supervisor and following up persistently until the,0,0,0,0
+stu_05_wk06,student,late,hybrid,2025.0,leadership,ROLE,"t. i strengthened my organizational and leadership skills by scheduling meetings, coordina",1,0,0,0
+stu_05_wk08,student,late,hybrid,2025.0,Washington,GPE,"researched organizations in washington , dc that could serve",0,0,0,0
+stu_05_wk08,student,late,hybrid,2025.0,DC,GPE,"researched organizations in washington , dc that could serve as partners",0,0,0,0
+stu_06_wk02,student,early,hybrid,2025.0,SharePoint,ORG,"to develop a new internal sharepoint page for the department ,",0,0,0,0
+stu_06_wk02,student,early,hybrid,2025.0,SharePoint,ORG,and design of the new sharepoint page .,0,0,0,0
+stu_06_wk02,student,early,hybrid,2025.0,supervisor,ROLE,"aining consistent communication with my supervisor, asking clarifying questions, and stayi",0,0,0,0
+stu_06_wk02,student,early,hybrid,2025.0,leadership,ROLE,ties and scheduled meetings with senior leadership across multiple teams to better underst,1,0,0,0
+stu_06_wk02,student,early,hybrid,2025.0,leadership,ROLE,ship and observed a board meeting where leadership and staff engaged in strategic discussi,0,0,0,0
+stu_06_wk02,student,early,hybrid,2025.0,leadership,ROLE," for the department, collaborating with leadership and it to determine design structure, i",0,0,0,0
+stu_06_wk02,student,early,hybrid,2025.0,staff,ROLE,ed a board meeting where leadership and staff engaged in strategic discussion. i was ,0,0,0,0
+stu_06_wk02,student,early,hybrid,2025.0,staff,ROLE,i also prepared slide decks for monthly staff meetings. i strengthened my strategic t,1,0,1,0
+stu_06_wk02,student,early,hybrid,2025.0,board,ROLE,ow during the internship and observed a board meeting where leadership and staff enga,0,0,0,0
+stu_06_wk04,student,early,hybrid,2025.0,SharePoint,ORG,to build and refine the sharepoint page for review by leadership,0,0,0,0
+stu_06_wk04,student,early,hybrid,2025.0,supervisor,ROLE," i addressed this by consulting with my supervisor, who facilitated a follow-up discussion",0,0,0,0
+stu_06_wk04,student,early,hybrid,2025.0,leadership,ROLE,efine the sharepoint page for review by leadership.,0,0,0,0
+stu_06_wk06,student,late,hybrid,2025.0,SharePoint,ORG,i continued developing the internal sharepoint page and began drafting a,0,0,0,0
+stu_06_wk06,student,late,hybrid,2025.0,West Africa,GPE,"monitoring and evaluation performance in west africa , as well as inter",0,0,0,0
+stu_06_wk06,student,late,hybrid,2025.0,the West Bank,GPE,agency coordination calls related to the west bank and gaza region . i,0,0,0,0
+stu_06_wk06,student,late,hybrid,2025.0,Gaza,GPE,to the west bank and gaza region . i focused on,0,0,0,0
+stu_06_wk06,student,late,hybrid,2025.0,SharePoint,ORG,"plan to continue refining the sharepoint page , finalize the newsletter",0,0,0,0
+stu_06_wk08,student,late,hybrid,2025.0,the International Programs,ORG,across two major teams within the international programs department . i also participated,0,0,0,0
+stu_06_wk08,student,late,hybrid,2025.0,supervisor,ROLE, maintaining open communication with my supervisor. once expectations were clearly defined,0,0,1,0
+stu_06_wk10,student,late,hybrid,2025.0,GSA,ORG,pricing team in developing a gsa schedule . i researched updated,0,0,0,0
+stu_06_wk10,student,late,hybrid,2025.0,SIN,ORG,"spreadsheet outlining role classifications , sin numbers , and hourly pricing",0,0,0,0
+stu_06_wk10,student,late,hybrid,2025.0,GSA,ORG,"also analyzed other organizations holding gsa schedules , reviewing their terms",0,0,0,0
+stu_06_wk10,student,late,hybrid,2025.0,GSA,ORG,"i encountered was navigating the gsa website , as it was",0,1,0,0
+stu_06_wk10,student,late,hybrid,2025.0,supervisor,ROLE,"t research, and regularly consulting my supervisor for clarification. through persistence ",0,0,0,0
+stu_07_wk02,student,early,hybrid,2025.0,Salesforce,GPE,"and updating donor data in salesforce , compiling contact information for",0,0,0,0
+stu_07_wk02,student,early,hybrid,2025.0,the broader development department,ORG,to expand professional connections within the broader development department .,1,0,1,0
+stu_07_wk02,student,early,hybrid,2025.0,donor,ROLE,"ed disaster fund, cleaning and updating donor data in salesforce, compiling contact i",0,0,0,0
+stu_07_wk04,student,early,hybrid,2025.0,Salesforce,ORG,was not recognized by the salesforce system and continued donor prospecting,0,0,0,0
+stu_07_wk04,student,early,hybrid,2025.0,team lead,ROLE,"rds, i communicated proactively with my team lead to request an extension, ensuring that ",0,0,0,0
+stu_07_wk04,student,early,hybrid,2025.0,donor,ROLE,i focused on correcting donor address data that was not recognized by,0,0,0,0
+stu_07_wk04,student,early,hybrid,2025.0,donor,ROLE, by the salesforce system and continued donor prospecting to identify corporate leads,0,0,0,0
+stu_07_wk06,student,late,hybrid,2025.0,supervisor,ROLE,ured calendar time-blocking based on my supervisor’s advice. because i support multiple te,1,0,1,0
+stu_07_wk06,student,late,hybrid,2025.0,donor,ROLE,i continued corporate donor prospecting and expanded my research to,0,0,0,0
+stu_07_wk08,student,late,hybrid,2025.0,donor,ROLE,i focused primarily on donor prospecting to gather information on ma,0,0,0,0
+stu_07_wk08,student,late,hybrid,2025.0,donor,ROLE,"d not yet been reviewed and approved by donor relations managers. as a result, i was ",0,0,0,0
+stu_07_wk10,student,late,hybrid,2025.0,donor,ROLE,"ampaign provided practical insight into donor engagement, messaging, and goal trackin",1,0,0,0
+stu_08_wk02,student,early,hybrid,2025.0,staff,ROLE," build stronger connections with office staff, and begin training to engage directly ",1,0,0,0
+stu_08_wk04,student,early,hybrid,2025.0,staff,ROLE," build stronger connections with office staff, and begin training to interact more di",1,0,0,0
+stu_08_wk06,student,late,hybrid,2025.0,supervisor,ROLE,plan to communicate more openly with my supervisor about task allocation and explore oppor,0,0,0,0
+stu_08_wk06,student,late,hybrid,2025.0,staff,ROLE, explore opportunities to support other staff members where additional assistance may,1,0,1,0
+stu_08_wk08,student,late,hybrid,2025.0,supervisor,ROLE,"o remain proactive, i reached out to my supervisor to offer support and inquire about addi",1,0,1,0
+stu_09_wk02,student,early,hybrid,2025.0,LGL,ORG,"and little green light ( lgl ) , focusing on data",0,0,0,0
+stu_09_wk02,student,early,hybrid,2025.0,donor,ROLE,a filtering and segmentation to improve donor and volunteer communications. i strengt,0,0,0,0
+stu_09_wk04,student,early,hybrid,2025.0,donor,ROLE,"ta-related work, particularly involving donor and volunteer management systems. i com",0,0,0,0
+stu_09_wk04,student,early,hybrid,2025.0,donor,ROLE,thened my ability to manage and segment donor and subscriber data using digital platf,0,0,0,0
+stu_09_wk06,student,late,hybrid,2025.0,Google Dialogflow,ORG,development of a chatbot using google dialogflow to enhance website interaction and,0,0,0,0
+stu_09_wk06,student,late,hybrid,2025.0,AI,GPE,technical knowledge by exploring conversational ai tools . a challenge i,0,1,0,0
+stu_09_wk08,student,late,hybrid,2025.0,Google Dialogflow,ORG,and completing a chatbot using google dialogflow for the organization ’s website,0,0,0,0
+stu_09_wk10,student,late,hybrid,2025.0,Google Dialogflow,ORG,development of a chatbot using google dialogflow for the organization ’s website,0,0,0,0
+stu_10_wk02,student,early,hybrid,2025.0,Canva,ORG,communication . learning to use canva for flyer creation strengthened my,1,0,0,0
+stu_10_wk02,student,early,hybrid,2025.0,staff,ROLE,"rs using digital design tools, attended staff meetings to coordinate programming, and",0,0,0,0
+stu_10_wk08,student,late,hybrid,2025.0,supervisor,ROLE,nd schedule concluding meetings with my supervisor and team members to review outcomes and,0,0,0,0
+stu_11_wk04,student,early,hybrid,2025.0,Python,PERSON,i plan to refine the python script to better handle inconsistencies,1,0,0,0
+stu_12_wk02,student,early,hybrid,2025.0,Meltwater,PERSON,i created media lists using meltwater in preparation for the upcoming,0,0,0,0
+stu_12_wk02,student,early,hybrid,2025.0,Sprout Social,ORG,reviewed social media analytics through sprout social to support data analysis efforts,1,0,1,0
+stu_12_wk08,student,late,hybrid,2025.0,leadership,ROLE,es and coordinating with communications leadership to ensure accurate and effective covera,0,0,0,0
+stu_13_wk02,student,early,hybrid,2025.0,staff,ROLE," clear, actionable summaries for senior staff. a key challenge involved navigating in",0,1,1,0
+stu_13_wk04,student,early,hybrid,2025.0,United Nations,ORG,of international financial institutions and united nations trust funds relevant to the,0,0,0,0
+stu_13_wk04,student,early,hybrid,2025.0,World Bank,ORG,"offices , particularly focused on world bank – related funding , and",0,0,0,0
+stu_13_wk04,student,early,hybrid,2025.0,supervisor,ROLE,ips with colleagues beyond my immediate supervisor by engaging more actively in meetings a,0,0,0,0
+stu_13_wk04,student,early,hybrid,2025.0,donor,ROLE," involved reviewing funding mechanisms, donor structures, and alignment opportunities",0,0,0,0
+stu_13_wk04,student,early,hybrid,2025.0,donor,ROLE,arer understanding of the importance of donor priorities and funding architectures in,1,0,0,0
+stu_13_wk06,student,late,hybrid,2025.0,World Bank,ORG,and reviewed documentation related to world bank engagements in selected countries .,0,0,0,0
+stu_13_wk06,student,late,hybrid,2025.0,World Bank,ORG,"drafted concise summaries of active world bank projects , organizing them by",0,0,0,0
+stu_13_wk06,student,late,hybrid,2025.0,World Bank,ORG,i plan to continue reviewing world bank projects in additional priority countries,0,0,0,0
+stu_13_wk08,student,late,hybrid,2025.0,donor,ROLE,by documenting discussions on technical donor relationships and identifying strategic,0,0,0,0
+stu_13_wk08,student,late,hybrid,2025.0,donor,ROLE,"elated to trust funds and institutional donor engagement is organized, accessible, an",0,0,0,0
+stu_14_wk02,student,early,hybrid,2025.0,leadership,ROLE,e a presentation to share insights with leadership within the gender-based violence team.,1,0,0,0
+stu_14_wk04,student,early,hybrid,2025.0,donor,ROLE,"hts, and impact stories to present in a donor-facing format. i strengthened my abilit",1,0,0,0
+stu_14_wk04,student,early,hybrid,2025.0,donor,ROLE,"he most effective format for presenting donor information, given significant creative",0,0,0,0
+stu_14_wk04,student,early,hybrid,2025.0,donor,ROLE,"y. to address this, i reviewed previous donor reports and organizational materials to",0,0,0,0
+stu_14_wk04,student,early,hybrid,2025.0,donor,ROLE,"the consultation summary report and the donor highlights document, and begin drafting",0,0,0,0
+stu_14_wk06,student,late,hybrid,2025.0,leadership,ROLE,"nitoring project, presented findings to leadership within the women and girls in emergenci",0,0,0,0
+stu_14_wk06,student,late,hybrid,2025.0,leadership,ROLE,ear recommendations to team members and leadership. a key challenge involved analyzing ope,0,1,0,0
+stu_14_wk06,student,late,hybrid,2025.0,donor,ROLE," girls in emergencies team, and wrote a donor brief on a potential climate sustainabi",0,0,0,0
+stu_14_wk08,student,late,hybrid,2025.0,supervisor,ROLE,scuss future project directions with my supervisor to ensure continuity and alignment with,0,0,0,0
+stu_14_wk08,student,late,hybrid,2025.0,donor,ROLE,umanitarian team call. i also completed donor briefs and related translations to supp,0,0,0,0
+stu_14_wk10,student,late,hybrid,2025.0,supervisor,ROLE,"ss this, i collaborated closely with my supervisor to refine thematic definitions and inco",0,0,0,0
+stu_14_wk10,student,late,hybrid,2025.0,donor,ROLE,digital minimum standards and completed donor briefs and translations to support ongo,1,0,1,0
+stu_15_wk02,student,early,remote,2025.0,Instagram,ORG,"social media platforms , including instagram , linkedin , and youtube",0,0,0,0
+stu_15_wk02,student,early,remote,2025.0,LinkedIn,GPE,"platforms , including instagram , linkedin , and youtube , and",0,0,0,0
+stu_15_wk02,student,early,remote,2025.0,YouTube,ORG,"instagram , linkedin , and youtube , and documented feedback on",0,0,1,0
+stu_15_wk02,student,early,remote,2025.0,staff,ROLE," better understand internal operations, staff tools, and program structures. i conduc",1,0,0,0
+stu_15_wk04,student,early,remote,2025.0,International Women in,ORG,"campaigns , including content for international women in engineering day and documentation from",0,0,0,0
+stu_15_wk04,student,early,remote,2025.0,Canva,ORG,developed my design skills using canva to better communicate layout concepts,1,0,0,0
+stu_15_wk06,student,late,remote,2025.0,supervisor,ROLE,"address this, i sought guidance from my supervisor and drafted a clear, professional outre",1,0,1,0
+stu_15_wk08,student,late,remote,2025.0,donor,ROLE,"ned production workflows. i will edit a donor-focused video titled “one gift, many ge",0,0,0,0
+stu_15_wk10,student,late,remote,2025.0,donor,ROLE,i edited a donor-focused campaign video titled “one gift,0,0,0,0
+stu_15_wk10,student,late,remote,2025.0,donor,ROLE,"storming sessions, we identified target donor groups and considered the types of impa",0,0,0,0
+stu_16_wk06,student,late,hybrid,2025.0,supervisor,ROLE,"red involved a miscommunication with my supervisor, which i addressed through open dialogu",0,0,0,0
+stu_16_wk08,student,late,hybrid,2025.0,Change Orders,ORG,information ( rfis ) and change orders into a comprehensive tracking system,0,1,0,0
+stu_16_wk08,student,late,hybrid,2025.0,the Institutional Advancement,ORG,". additionally , i shadowed the institutional advancement team and contributed to the",0,0,0,0
+stu_17_wk02,student,early,remote,2025.0,RMNCH,ORG,", and child health ( rmnch ) portfolio to align more",0,0,0,0
+stu_17_wk04,student,early,remote,2025.0,the Climate Change for,ORG,i completed my work on the climate change for healthcare workers presentation materials and,0,1,0,0
+stu_17_wk04,student,early,remote,2025.0,Healthcare Workers,ORG,on the climate change for healthcare workers presentation materials and transitioned to,0,1,0,0
+stu_17_wk04,student,early,remote,2025.0,Mobile Health Units,ORG,of best practice guidelines for mobile health units ( mhus ) . because,0,0,0,0
+stu_17_wk04,student,early,remote,2025.0,MHU,ORG,mhus ) . because the mhu project falls slightly outside my,0,0,0,0
+stu_17_wk04,student,early,remote,2025.0,the Mobile Health Unit,ORG,. i aim to complete the mobile health unit guidelines document and expand my,0,0,0,0
+stu_17_wk06,student,late,remote,2025.0,Gavi,PERSON,grant proposal related to a gavi vaccination campaign supported by a,0,0,0,0
+stu_17_wk08,student,late,remote,2025.0,Gavi,PERSON,"i continued working on gavi and unicef grant proposals ,",0,0,0,0
+stu_17_wk08,student,late,remote,2025.0,UNICEF,ORG,"continued working on gavi and unicef grant proposals , focusing on",0,0,0,0
+stu_17_wk08,student,late,remote,2025.0,Project HOPE’s,ORG,"global health frameworks , mapping project hope ’s technical capabilities to funder priorities",0,0,0,0
+stu_17_wk08,student,late,remote,2025.0,supervisor,ROLE,"ties, and supporting revisions based on supervisor feedback. i also contributed to donor m",1,0,1,0
+stu_17_wk08,student,late,remote,2025.0,donor,ROLE,"organizational capacity statements, and donor requirements outlined in requests for p",0,0,0,0
+stu_17_wk08,student,late,remote,2025.0,donor,ROLE,ervisor feedback. i also contributed to donor mapping efforts and began preparing a f,0,0,1,0
+stu_17_wk08,student,late,remote,2025.0,donor,ROLE,"entation materials, continue supporting donor mapping efforts, and complete final rev",1,0,1,0
+stu_17_wk10,student,late,remote,2025.0,Gavi,PERSON,an additional section of the gavi grant application and led the,0,0,0,0
+stu_17_wk10,student,late,remote,2025.0,staff,ROLE,"eading meetings with cross-departmental staff, including senior team members outside ",0,0,0,0
+stu_17_wk10,student,late,remote,2025.0,donor,ROLE,"tional achievements, aligning them with donor expectations, and facilitating coordina",0,0,0,0
+stu_18_wk02,student,early,remote,2025.0,Salesforce,GPE,"aim to build proficiency in salesforce , as it is a",0,0,0,0
+stu_18_wk04,student,early,remote,2025.0,SQL,ORG,organizing and cleaning records using sql and excel to enhance internal,0,0,0,0
+stu_18_wk04,student,early,remote,2025.0,SQL,ORG,"database management tools , particularly sql queries and advanced excel functions",0,0,0,0
+stu_18_wk04,student,early,remote,2025.0,Salesforce,ORG,to deepen my understanding of salesforce and the organization ’s volunteer,1,0,0,0
+stu_18_wk08,student,late,remote,2025.0,Tableau,GPE,and standardized volunteer data within tableau by analyzing structured and free,0,0,0,0
+stu_18_wk08,student,late,remote,2025.0,Tableau,GPE,- importing cleaned datasets into tableau to enhance visualization reliability .,0,0,0,0
+stu_18_wk08,student,late,remote,2025.0,Tableau,GPE,developed was building proficiency in tableau for data cleaning and visualization,1,0,0,0
+stu_18_wk08,student,late,remote,2025.0,Tableau,GPE,"top organizations dashboard project in tableau , complete the annual volunteer",0,0,0,0
+stu_18_wk10,student,late,remote,2025.0,Salesforce,ORG,organized volunteer application data within salesforce to ensure record accuracy and,0,0,0,0
+stu_18_wk10,student,late,remote,2025.0,Salesforce,PERSON,"skill i strengthened was navigating salesforce for efficient data management ,",1,0,0,0
+stu_18_wk10,student,late,remote,2025.0,supervisor,ROLE,s and validated ambiguous cases with my supervisor before updating records. this approach ,0,0,0,0
+stu_19_wk02,student,early,remote,2025.0,the Gaucher Mental Health and Psychosocial Support,ORG,i supported the integration of the gaucher mental health and psychosocial support ( mhpss ) program in,1,0,1,0
+stu_19_wk02,student,early,remote,2025.0,Egypt,GPE,( mhpss ) program in egypt by developing a presentation outlining,0,0,0,0
+stu_19_wk02,student,early,remote,2025.0,the United States,GPE,on youth mental health in the united states . this work involves collecting,0,0,0,0
+stu_19_wk02,student,early,remote,2025.0,Project HOPE’s,ORG,sources and opportunities relevant to project hope ’s mental health initiatives . a,0,0,0,0
+stu_19_wk02,student,early,remote,2025.0,Microsoft Excel,ORG,was becoming more proficient with microsoft excel and sharepoint for in -,0,0,0,0
+stu_19_wk02,student,early,remote,2025.0,SharePoint,ORG,proficient with microsoft excel and sharepoint for in - depth research,0,0,0,0
+stu_19_wk02,student,early,remote,2025.0,SharePoint,ORG,further strengthen my proficiency with sharepoint and other internal systems .,0,0,0,0
+stu_19_wk02,student,early,remote,2025.0,supervisor,ROLE," detailed and precise research, meet my supervisor’s expectations, and further strengthen ",0,0,0,0
+stu_19_wk04,student,early,remote,2025.0,Sierra Leone,GPE,of “ kush ” in sierra leone and cyberbullying and school violence,0,0,0,0
+stu_19_wk04,student,early,remote,2025.0,Ghana,GPE,"cyberbullying and school violence in ghana . for each topic ,",0,0,0,0
+stu_19_wk04,student,early,remote,2025.0,Mental Health Resilience Program,ORG,statement for the youth and mental health resilience program in the united states .,0,0,0,0
+stu_19_wk04,student,early,remote,2025.0,the United States,GPE,mental health resilience program in the united states . this involved synthesizing language,0,0,0,0
+stu_19_wk04,student,early,remote,2025.0,U.S.,GPE,"mental health trends in the u.s. , and articulating the program",0,0,0,0
+stu_19_wk04,student,early,remote,2025.0,Project HOPE’s,ORG,health and the implementation of project hope ’s programs . i am looking,0,0,0,0
+stu_19_wk06,student,late,remote,2025.0,Youth Mental Health and Resilience,ORG,edited the 85 - page youth mental health and resilience curriculum to improve grammatical accuracy,0,0,0,0
+stu_19_wk06,student,late,remote,2025.0,the Youth Mental Health and Resilience Program,ORG,developing a capacity statement for the youth mental health and resilience program in the united states by,0,0,0,0
+stu_19_wk06,student,late,remote,2025.0,the United States,GPE,health and resilience program in the united states by synthesizing information from reports,0,0,0,0
+stu_19_wk06,student,late,remote,2025.0,Nigeria,GPE,"from initiatives carried out in nigeria , costa rica , and",0,0,0,0
+stu_19_wk06,student,late,remote,2025.0,Costa Rica,GPE,"carried out in nigeria , costa rica , and the u.s. virgin",0,0,0,0
+stu_19_wk06,student,late,remote,2025.0,U.S.,GPE,"costa rica , and the u.s. virgin islands . a key",0,0,0,0
+stu_19_wk08,student,late,remote,2025.0,the Youth Mental Health and Resilience,ORG,"i continued analyzing data from the youth mental health and resilience programs implemented in nigeria ,",0,0,0,0
+stu_19_wk08,student,late,remote,2025.0,Nigeria,GPE,"and resilience programs implemented in nigeria , the u.s. virgin islands",0,0,0,0
+stu_19_wk08,student,late,remote,2025.0,U.S. Virgin Islands,GPE,"implemented in nigeria , the u.s. virgin islands , and costa rica .",0,0,0,0
+stu_19_wk08,student,late,remote,2025.0,Costa Rica,GPE,"u.s. virgin islands , and costa rica . my work focused on",0,0,0,0
+stu_19_wk08,student,late,remote,2025.0,the Youth Mental Health and Resilience,ORG,drafting a research article evaluating the youth mental health and resilience programs .,0,0,0,0
+stu_19_wk10,student,late,remote,2025.0,the Youth Mental Health and Resilience Program,ORG,"i continued analyzing data from the youth mental health and resilience program implemented in nigeria , the",0,0,0,0
+stu_19_wk10,student,late,remote,2025.0,Nigeria,GPE,"and resilience program implemented in nigeria , the u.s. virgin islands",0,0,0,0
+stu_19_wk10,student,late,remote,2025.0,U.S. Virgin Islands,GPE,"implemented in nigeria , the u.s. virgin islands , and costa rica .",0,0,0,0
+stu_19_wk10,student,late,remote,2025.0,Costa Rica,GPE,"u.s. virgin islands , and costa rica . i conducted statistical tests",0,0,0,0
+sup_01,supervisor,late,,2025.0,DC,GPE,up at the office in dc . i work in atlanta,0,0,0,0
+sup_01,supervisor,late,,2025.0,Atlanta,GPE,"dc . i work in atlanta , so we never met",0,0,0,0
+sup_01,supervisor,late,,2025.0,DC,GPE,of younger employees in the dc office that i think she,0,0,0,0
+sup_01,supervisor,late,,2025.0,COVID,PERSON,"for guidance , but after covid and work - from -",0,0,1,0
+sup_01,supervisor,late,,2025.0,LinkedIn,GPE,whole team of interns on linkedin the other day . i,0,0,0,0
+sup_01,supervisor,late,,2025.0,colleague,ROLE,"umanitarian aid. so i set her up with a colleague who works in that field, splitting her ",0,0,0,0
+sup_02,supervisor,late,,2025.0,the Washington Center,ORG,i think one was called the washington center that we had interns from,0,0,0,0
+sup_02,supervisor,late,,2025.0,leadership,ROLE,"he way through my interactions with the leadership committee, the boards, and the executiv",0,1,0,1
+sup_03,supervisor,late,,2025.0,Scott Gregory,PERSON,guys were mostly dealing with scott gregory on our end to facilitate,0,0,0,0
+sup_03,supervisor,late,,2025.0,USAID,ORG,we were actually not large usaid recipients or anything like that,0,0,0,0
+sup_03,supervisor,late,,2025.0,US,GPE,"domestic projects here in the us through our core program ,",0,0,0,0
+sup_03,supervisor,late,,2025.0,USDA,ORG,"through federal programs like the usda , department of transportation ,",0,0,0,0
+sup_03,supervisor,late,,2025.0,Department of Transportation,ORG,"programs like the usda , department of transportation , and the epa .",0,0,0,0
+sup_03,supervisor,late,,2025.0,EPA,ORG,"of transportation , and the epa . so we were really",0,0,0,0
+sup_03,supervisor,late,,2025.0,HIPP,ORG,"that we had from the hipp program , yoomin , i",0,0,0,0
+sup_03,supervisor,late,,2025.0,Yoomin,PERSON,"from the hipp program , yoomin , i believe she was",0,0,0,0
+sup_03,supervisor,late,,2025.0,Katie,PERSON,"believe she was reporting to katie , who was one of",0,0,0,0
+sup_03,supervisor,late,,2025.0,Scott,ORG,if you 've chatted with scott about it . she was,0,0,0,0
+sup_03,supervisor,late,,2025.0,EWD,ORG,"been a long time since ewd has done paid internships ,",0,0,0,0
+sup_03,supervisor,late,,2025.0,HIPP,ORG,great addition to have the hipp program because i felt like,1,0,0,0
+sup_03,supervisor,late,,2025.0,Yoomin,PERSON,from the other department about yoomin as well . i just,0,0,0,0
+sup_03,supervisor,late,,2025.0,Scott Gregory,PERSON,". i would definitely ask scott gregory , since i know he",0,0,0,0
+sup_03,supervisor,late,,2025.0,EWB,ORG,was managing the partnership between ewb and gw . but i,0,0,0,0
+sup_03,supervisor,late,,2025.0,GW,ORG,the partnership between ewb and gw . but i know on,0,0,0,0
+sup_03,supervisor,late,,2025.0,EWB,ORG,"and then i know at ewb , we had our internal",0,0,0,0
+sup_03,supervisor,late,,2025.0,American University,ORG,"day . i went to american university , so i have a",0,0,0,0
+sup_03,supervisor,late,,2025.0,GW,ORG,gw . i know that gw has a phenomenal communications program,0,0,0,0
+sup_03,supervisor,late,,2025.0,Slack,ORG,i saw her send a slack message before 09:00 my time,0,0,0,0
+sup_03,supervisor,late,,2025.0,Slack,ORG,"at participating , participating on slack . i thought that the",0,0,0,0
+sup_03,supervisor,late,,2025.0,Colorado,GPE,"our staff is based in colorado at this point , but",0,0,0,0
+sup_03,supervisor,late,,2025.0,US,GPE,in different locations throughout the us . so we 're used,0,0,0,0
+sup_03,supervisor,late,,2025.0,LinkedIn,LOC,program . i saw your linkedin post the other day and,0,0,0,0
+sup_03,supervisor,late,,2025.0,staff,ROLE," last month, we actually had to do some staff reductions. it was really sad. i think ",0,0,0,0
+sup_03,supervisor,late,,2025.0,staff,ROLE," we got to where we are and where those staff cuts came from, just to give her an und",0,1,0,1
+sup_03,supervisor,late,,2025.0,staff,ROLE,"ization, so we have a few people on our staff who have moved from internships into st",0,0,0,0
+sup_03,supervisor,late,,2025.0,staff,ROLE,ff who have moved from internships into staff positions. it's definitely not the most,0,0,0,0
+sup_03,supervisor,late,,2025.0,staff,ROLE,"re really small. we have really limited staff capacity. so for me personally, it was ",0,1,0,1
+sup_03,supervisor,late,,2025.0,staff,ROLE,"1:00 to 19:00 instead. maybe 90% of our staff is based in colorado at this point, but",0,0,0,0
+sup_03,supervisor,late,,2025.0,staff,ROLE,"ado at this point, but we have a ton of staff who are in different locations througho",0,0,0,0
+sup_04,supervisor,late,,2025.0,Hameed,PERSON,my name is hameed . i 'm the director,0,0,0,0
+sup_04,supervisor,late,,2025.0,Jubilee Housing,PERSON,", and evaluation here at jubilee housing . i was the one",0,0,0,0
+sup_04,supervisor,late,,2025.0,Rachel,PERSON,her skills as well . rachel is the data analyst who,0,0,0,0
+sup_04,supervisor,late,,2025.0,Rachel,PERSON,just hand it over to rachel for her opinions and feedback,0,0,1,0
+sup_04,supervisor,late,,2025.0,Rachel,PERSON,"organization was mainly handled by rachel , and i do n't",0,0,0,0
+sup_04,supervisor,late,,2025.0,Apricot,PERSON,"learn how to use is apricot , and it 's not",0,0,0,0
+sup_04,supervisor,late,,2025.0,Apricot,PERSON,"that i set up in apricot myself that are custom ,",0,0,0,0
+sup_04,supervisor,late,,2025.0,Hameed,PERSON,"i do n't know if hameed has any . honestly ,",0,0,0,0
+sup_04,supervisor,late,,2025.0,director,ROLE,"my name is hameed. i'm the director of research, impact, and evaluation her",0,0,0,0
+sup_05,supervisor,late,,2025.0,Yovan Boyd,PERSON,i 'm yovan boyd . i serve as the,0,0,0,0
+sup_05,supervisor,late,,2025.0,the Ward 8 Hub,ORG,serve as the director of the ward 8 hub . we 're located in,0,0,0,0
+sup_05,supervisor,late,,2025.0,Highlands,GPE,located in ward 8 in highlands public housing . we serve,0,0,0,0
+sup_05,supervisor,late,,2025.0,Partnership Independence,ORG,"manager of a program called partnership independence , and we have a",0,0,0,0
+sup_05,supervisor,late,,2025.0,Jasmine,PERSON,it was great to have jasmine as a part of the,1,0,0,0
+sup_05,supervisor,late,,2025.0,LAHIV,GPE,assist them with applying for lahiv or other programs that are,0,0,0,0
+sup_05,supervisor,late,,2025.0,Jasmine,PERSON,"was all educational , so jasmine actually was one of the",0,0,0,0
+sup_05,supervisor,late,,2025.0,Jasmine,PERSON,"into the community , and jasmine just handled everything . she",0,0,0,0
+sup_05,supervisor,late,,2025.0,Highlands Dwellings,ORG,"not just serving this immediate highlands dwellings community , but people come",0,0,0,0
+sup_05,supervisor,late,,2025.0,ED,ORG,to receive services . the ed wanted to capture how it,0,0,0,0
+sup_05,supervisor,late,,2025.0,Jasmine,PERSON,where it is now . jasmine and one other intern worked,0,0,0,0
+sup_05,supervisor,late,,2025.0,Jasmine,PERSON,", but they also recognized jasmine and gave her flowers and",0,0,0,0
+sup_05,supervisor,late,,2025.0,Hub,ORG,"you to come by the hub , but i do know",0,0,0,0
+sup_05,supervisor,late,,2025.0,St. Elizabeths,ORG,"went to the shelter at st. elizabeths , and then we went",0,0,0,0
+sup_05,supervisor,late,,2025.0,Jasmine,PERSON,"clothing , and toiletries . jasmine was just all in and",0,0,0,0
+sup_05,supervisor,late,,2025.0,Jasmine,PERSON,and did a styling with jasmine . jasmine was all on,0,0,0,0
+sup_05,supervisor,late,,2025.0,Jasmine,PERSON,a styling with jasmine . jasmine was all on board .,0,0,0,0
+sup_05,supervisor,late,,2025.0,Jasmine,PERSON,"terrible computer skills , and jasmine worked with him so he",0,0,0,0
+sup_05,supervisor,late,,2025.0,Canva,GPE,can now create flyers in canva . so she did a,0,0,0,0
+sup_05,supervisor,late,,2025.0,Jasmine,PERSON,we 're about to lose jasmine . she was so helpful,1,0,1,0
+sup_05,supervisor,late,,2025.0,manager,ROLE," myself, a community outreach person, a manager of a program called partnership indepen",0,0,0,0
+sup_05,supervisor,late,,2025.0,director,ROLE,i'm yovan boyd. i serve as the director of the ward 8 hub. we're located in war,0,0,0,0
+sup_05,supervisor,late,,2025.0,coordinator,ROLE," independence, and we have a front desk coordinator. we really survive on volunteers becaus",0,0,0,0
+sup_05,supervisor,late,,2025.0,staff,ROLE,"d a little over 5,200 people. we have a staff of four here, so it's myself, a communi",0,0,0,0
+sup_05,supervisor,late,,2025.0,staff,ROLE,of her comfort zone. then i do have one staff person that really has terrible compute,0,0,0,0
+sup_05,supervisor,late,,2025.0,board,ROLE,tyling with jasmine. jasmine was all on board. you don't see a lot of young folks tha,0,0,0,0
+sup_06,supervisor,late,,2025.0,Matty,PERSON,my name is matty . i 'm the senior,0,0,0,0
+sup_06,supervisor,late,,2025.0,World Central Kitchen,ORG,senior supply chain manager for world central kitchen . we work out of,0,0,0,0
+sup_06,supervisor,late,,2025.0,Capitol Heights,GPE,"of our main warehouse in capitol heights , maryland . we 've",0,0,0,0
+sup_06,supervisor,late,,2025.0,Maryland,GPE,"warehouse in capitol heights , maryland . we 've got a",0,0,0,0
+sup_06,supervisor,late,,2025.0,Ashley,PERSON,"then all of a sudden ashley was like , “ so",0,0,0,0
+sup_06,supervisor,late,,2025.0,Matty,PERSON,"was like , “ so matty , we 've got people",0,0,0,0
+sup_06,supervisor,late,,2025.0,Puerto Rico,GPE,"a hurricane that 's impacting puerto rico , that 's off the",0,0,0,0
+sup_06,supervisor,late,,2025.0,Sudan,GPE,". the student jumped into sudan and just like , i",0,0,0,0
+sup_06,supervisor,late,,2025.0,Sudan,GPE,am ready to go into sudan now . she was able,0,0,0,0
+sup_06,supervisor,late,,2025.0,Cali,PERSON,took direction super well . cali jumped on mexico at first,0,0,0,0
+sup_06,supervisor,late,,2025.0,Mexico,GPE,well . cali jumped on mexico at first and started compiling,0,0,0,0
+sup_06,supervisor,late,,2025.0,WCK,ORG,scrubbing some of our old wck information that we have collected,0,0,0,0
+sup_06,supervisor,late,,2025.0,Guatemala,GPE,they had special projects in guatemala . we were down there,0,0,0,0
+sup_06,supervisor,late,,2025.0,DC,GPE,deploying our food truck into dc 's ward 8 and creating,0,0,0,0
+sup_06,supervisor,late,,2025.0,Bread,PERSON,meals to the community that bread for the city was providing,0,0,0,0
+sup_06,supervisor,late,,2025.0,DC Central Kitchen,ORG,provided 200 hot meals to dc central kitchen for their evening dinner service,0,0,0,0
+sup_06,supervisor,late,,2025.0,WCK,ORG,"? and i think that wck , kind of our whole",0,0,0,0
+sup_06,supervisor,late,,2025.0,GW,ORG,leadership as well as the gw staff to be able to,0,0,0,0
+sup_06,supervisor,late,,2025.0,manager,ROLE,e is matty. i'm the senior supply chain manager for world central kitchen. we work out ,0,0,0,0
+sup_06,supervisor,late,,2025.0,leadership,ROLE,at we were able to get the support from leadership as well as the gw staff to be able to p,1,0,1,0
+sup_06,supervisor,late,,2025.0,staff,ROLE,pport from leadership as well as the gw staff to be able to push this project forward,0,0,0,0
+sup_06,supervisor,late,,2025.0,staff,ROLE,"eginning set up right. so we had our hq staff, the communications department, our saf",0,0,0,0
+sup_06,supervisor,late,,2025.0,board,ROLE, and found better candidates across the board. i think you guys did an amazing job so,1,0,0,0
+sup_07,supervisor,late,,2025.0,SharePoint,ORG,"working on developing a new sharepoint page for our team ,",0,0,0,0
+sup_07,supervisor,late,,2025.0,Jack,PERSON,"the timing . obviously , jack , you and i had",0,0,0,0
+sup_07,supervisor,late,,2025.0,SharePoint,ORG,"i just onboarded her to sharepoint , how to use sharepoint",0,0,0,0
+sup_07,supervisor,late,,2025.0,SharePoint,ORG,"sharepoint , how to use sharepoint , where to access it",0,0,0,0
+sup_08,supervisor,late,,2025.0,WCK,ORG,"in the development department of wck , and it 's been",0,0,0,0
+sup_08,supervisor,late,,2025.0,WCK,ORG,was a first time for wck hosting interns . so we,0,0,0,0
+sup_08,supervisor,late,,2025.0,WCK,ORG,"in our case , in wck , as you probably know",0,0,0,0
+sup_08,supervisor,late,,2025.0,Monica,PERSON,"you probably know , or monica maybe you 've been handling",0,0,0,0
+sup_08,supervisor,late,,2025.0,Ashley,PERSON,"handling this , we had ashley , who 's our executive",0,0,0,0
+sup_08,supervisor,late,,2025.0,Ashley,PERSON,this was done again because ashley was the main point of,0,0,0,0
+sup_08,supervisor,late,,2025.0,Ashley,PERSON,more suggestion . there was ashley and so many points of,0,0,0,0
+sup_08,supervisor,late,,2025.0,Ashley,PERSON,". because i remember when ashley brought all of them ,",0,0,0,0
+sup_08,supervisor,late,,2025.0,Catherine,PERSON,"one of my colleagues , catherine , and she was like",0,0,0,0
+sup_08,supervisor,late,,2025.0,Catherine,PERSON,"so maybe looking at whatever catherine did , so you guys",0,0,0,0
+sup_08,supervisor,late,,2025.0,director,ROLE,"wasn't thinking about that, and also my director was thinking of tasks, tangible things ",0,0,0,0
+sup_08,supervisor,late,,2025.0,donor,ROLE,"hadowing a meeting with our client or a donor, or shadowing different personnel to ge",0,0,0,0
+sup_08,supervisor,late,,2025.0,executive,ROLE,"handling this, we had ashley, who's our executive assistant, and she's been the main poin",0,1,0,1
+sup_09,supervisor,late,,2025.0,Southeast DC,GPE,"that we used at our southeast dc location , ward 8 .",0,0,0,0
+sup_09,supervisor,late,,2025.0,the United States,GPE,where furniture banks are throughout the united states . so we 're really,0,0,0,0
+sup_09,supervisor,late,,2025.0,Capitol Hill,ORG,us for a briefing on capitol hill about furniture poverty . so,0,0,0,0
+sup_09,supervisor,late,,2025.0,the Peace Corps,ORG,"is very much to join the peace corps , and so we are",0,0,0,0
+sup_09,supervisor,late,,2025.0,staff,ROLE,"enjoyed that, really connected with our staff there, and our staff also felt that she",0,0,0,0
+sup_09,supervisor,late,,2025.0,staff,ROLE,"connected with our staff there, and our staff also felt that she had done a great job",1,0,0,0
+sup_10,supervisor,late,,2025.0,AI,GPE,"on some computer coding and ai , and so they worked",0,0,0,0
+sup_10,supervisor,late,,2025.0,GW,ORG,that they do get from gw to kind of round out,0,0,0,0
+sup_10,supervisor,late,,2025.0,Adam,PERSON,. so thank you . adam could speak more to the,0,0,0,0
+sup_10,supervisor,late,,2025.0,Adam,PERSON,"a lot more limited than adam 's , it was very",0,1,0,1
+sup_10,supervisor,late,,2025.0,supervisor,ROLE,"ix-week check-in, maybe as a triad, the supervisor, the main contact for that student in y",0,0,1,0
+sup_10,supervisor,late,,2025.0,supervisor,ROLE," in the worst-case scenario, can help a supervisor know who to reach out to, have a face t",1,0,1,0
+sup_10,supervisor,late,,2025.0,supervisor,ROLE,"ol if they do have a concern with their supervisor, and help lessen that power dynamic. i ",1,0,1,0
+sup_10,supervisor,late,,2025.0,supervisor,ROLE,"didn't meet her directly, but i saw her supervisor this morning, and she said, wow, yester",0,0,0,0
+sup_10,supervisor,late,,2025.0,ceo,ROLE,"le of database cleanup projects for our ceo. she worked with me on some research, k",0,0,0,0
+sup_11,supervisor,late,,2025.0,Sarah,PERSON,i 'm sarah . i 'm based in,0,0,0,0
+sup_11,supervisor,late,,2025.0,Belfast,GPE,". i 'm based in belfast in northern ireland , and",0,0,0,0
+sup_11,supervisor,late,,2025.0,Northern Ireland,GPE,"'m based in belfast in northern ireland , and great to meet",1,0,0,0
+sup_11,supervisor,late,,2025.0,Relief International,ORG,"scheduling this . i joined relief international in march , so around",0,0,0,0
+sup_11,supervisor,late,,2025.0,DC,GPE,"to have an office in dc , but with all the",0,0,0,0
+sup_11,supervisor,late,,2025.0,SharePoint,ORG,"researching various documents in our sharepoint system , just getting a",0,0,0,0
+sup_11,supervisor,late,,2025.0,manager,ROLE,"ion is as a global business development manager, working closely with the director to r",0,0,0,0
+sup_11,supervisor,late,,2025.0,manager,ROLE,"ted at a late stage to be the student's manager, which is fine, and we made sure that t",0,0,0,0
+sup_11,supervisor,late,,2025.0,manager,ROLE,"f it's out of context without meeting a manager. no, i think it was very clear-cut, and",0,1,1,1
+sup_11,supervisor,late,,2025.0,manager,ROLE," our perspective, from our director, my manager, and others, the feedback was very posi",0,0,1,0
+sup_11,supervisor,late,,2025.0,director,ROLE,"pment manager, working closely with the director to really generate income and develop n",0,0,0,0
+sup_11,supervisor,late,,2025.0,director,ROLE,"he university, and then potentially the director of our team. so i suppose i was allocat",0,0,0,0
+sup_11,supervisor,late,,2025.0,director,ROLE,"ertainly from our perspective, from our director, my manager, and others, the feedback w",0,0,1,0
+sup_11,supervisor,late,,2025.0,leadership,ROLE," annual reports, organizational charts, leadership bios. so i can share this document with",0,0,0,0
+sup_11,supervisor,late,,2025.0,board,ROLE," happened between hr and members of the board that were engaged with the university, ",0,0,0,0
+sup_11,supervisor,late,,2025.0,hr,ROLE,lieve the coordination happened between hr and members of the board that were enga,0,0,0,0
+sup_12,supervisor,late,,2025.0,Miranda,PERSON,great experience . i think miranda worked on another project with,1,0,0,0
+sup_12,supervisor,late,,2025.0,Carrie,PERSON,"out to . same as carrie said , the student was",0,0,0,0
+sup_12,supervisor,late,,2025.0,Slack,ORG,"we would reach out via slack , which is the communication",0,0,0,0
+sup_12,supervisor,late,,2025.0,Carrie,PERSON,". i would say , carrie and i met with the",0,0,0,0
+sup_12,supervisor,late,,2025.0,GW,ORG,"then just maybe on the gw side , letting them know",0,0,0,0
+sup_12,supervisor,late,,2025.0,Miranda,PERSON,", i 'd echo what miranda said . in my experience",0,0,0,0
+sup_12,supervisor,late,,2025.0,EWB,ORG,"of times our interns have ewb experience , and she did",0,0,0,0
+sup_12,supervisor,late,,2025.0,Miranda,PERSON,"yeah , and echoing what miranda said , it was genuinely",0,0,0,0
+sup_12,supervisor,late,,2025.0,supervisor,ROLE,and motivation to do the work without a supervisor directly over you watching you. so havi,0,0,0,0
+sup_12,supervisor,late,,2025.0,colleague,ROLE,er of the year. great feedback from the colleague that worked with the student on that. i,1,0,1,0
+,,,,,Project Hope,ORG,"important project to us in project hope , because right now we",0,0,0,0
+,,,,,Project Hope,ORG,reporting across the board . project hope is at the point where,0,0,0,0
+,,,,,Project Hope,ORG,"that was going on in project hope , a lot of the",0,0,0,0
+,,,,,Project Hope,ORG,the feedback that even at project hope we need to provide orientation,0,0,1,0
+,,,,,Ghana,GPE,"was , he 's from ghana . i 'm from nigeria",0,0,0,0
+,,,,,Nigeria,GPE,ghana . i 'm from nigeria . the way you 're,0,0,0,0
+,,,,,US,GPE,'re being taught in the us is totally different from what,0,0,0,0
+,,,,,US,GPE,"now you 're in the us , and they are teaching",0,0,0,0
+,,,,,Project Hope,ORG,some of the students to project hope to support some of our,1,0,1,0
+,,,,,Project Hope,ORG,reach out to organizations like project hope . we share some projects,0,0,0,0
+,,,,,Project Hope,ORG,do is read up on project hope and read up on that,0,0,0,0
+,,,,,Project Hope:,ORG,"i support three regions in project hope : africa , asia , and",1,0,1,0
+,,,,,Africa,LOC,"regions in project hope : africa , asia , and eastern",0,0,0,0
+,,,,,Asia,LOC,"project hope : africa , asia , and eastern europe .",0,0,0,0
+,,,,,Eastern Europe,LOC,"africa , asia , and eastern europe . so once there 's",0,0,0,0
+,,,,,Project Hope,ORG,", meaning you and even project hope , need to encourage them",0,0,1,0
+,,,,,Project Hope,ORG,"feel free , because at project hope we are one big family",0,0,0,0
+,,,,,Kimora,PERSON,to call it in . kimora is really confident . so,1,0,0,0
+,,,,,Kimora,PERSON,"guys have done to make kimora confident , make the other",1,0,0,0
+,,,,,Project Hope,ORG,"the interns , helpful to project hope , and also to the",1,0,1,0
+,,,,,supervisor,ROLE,"ke that. but he was assigned to my then supervisor, who unfortunately had to exit the orga",0,0,0,0
+,,,,,supervisor,ROLE," project he was working on with my then supervisor, so we just had to continue. and it is ",0,0,0,0
+,,,,,supervisor,ROLE,"n to the interns. for example, i'm your supervisor, and you have a meeting with somebody i",0,0,0,0
+,,,,,supervisor,ROLE,"hat you're doing, i can't update my own supervisor. so i told him subsequently, when you a",0,0,0,0
+,,,,,supervisor,ROLE,"ng supervised, call a meeting with your supervisor, express your concern. two things will ",0,0,0,0
+,,,,,supervisor,ROLE,"ur concern. two things will happen. the supervisor will change, or the supervisor will not",0,1,0,0
+,,,,,supervisor,ROLE,"pen. the supervisor will change, or the supervisor will not change. so prepare to deal wit",0,1,0,0
+,,,,,supervisor,ROLE,ntern so they have an idea of who their supervisor would be. they have an idea of the kind,0,0,0,0
+,,,,,supervisor,ROLE,"a new team, the first question i ask my supervisor is, how do you like to supervise? from ",0,0,0,0
+,,,,,supervisor,ROLE,"om that conversation, i can tell if the supervisor is a micromanager or the person would a",0,0,0,0
+,,,,,donor,ROLE,"e we don't only want to report what the donor is asking us to report, we also want to",0,0,0,0
+,,,,,board,ROLE,e is uniformity of reporting across the board. project hope is at the point where we ,0,0,0,0
