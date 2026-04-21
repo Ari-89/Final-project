@@ -1,0 +1,5 @@
+I continued client-facing work one day per week, assisting individuals in selecting furniture and understanding their needs. I completed a data project involving cleanup, organization, and segmentation of subscriber records to improve communication outreach. I also began exploring the development of a chatbot using Google Dialogflow to enhance website interaction and client support. In addition, I continued research and data analysis related to furniture poverty and donation trends.
+
+I strengthened my data management and segmentation skills using digital platforms and expanded my technical knowledge by exploring conversational AI tools. A challenge I encountered involved inconsistencies and duplicate entries within subscriber data. I addressed this by manually cleaning and formatting the data in spreadsheet software before re-importing it into communication systems, improving overall accuracy and usability.
+
+I plan to continue client engagement, begin active development of the chatbot project, support ongoing data analysis and documentation efforts, and further develop skills in tools that enhance nonprofit productivity and communication.

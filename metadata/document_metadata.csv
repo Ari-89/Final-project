@@ -1,0 +1,107 @@
+doc_id,file_name,participant_type,participant_id,week_number,timepoint,early_late,cohort_year,organization_name,work_mode
+stu_01_wk02,student_01_week02.txt,student,1,2,week1-2,early,2025,Project Hope,hybrid
+stu_01_wk04,student_01_week04.txt,student,1,4,week3-4,early,2025,Project Hope,hybrid
+stu_01_wk06,student_01_week06.txt,student,1,6,week5-6,late,2025,Project Hope,hybrid
+stu_01_wk08,student_01_week08.txt,student,1,8,week7-8,late,2025,Project Hope,hybrid
+stu_01_wk10,student_01_week10.txt,student,1,10,week9-10,late,2025,Project Hope,hybrid
+stu_02_wk02,student_02_week02.txt,student,2,2,week1-2,early,2025,Relief International,remote
+stu_02_wk04,student_02_week04.txt,student,2,4,week3-4,early,2025,Relief International,remote
+stu_02_wk06,student_02_week06.txt,student,2,6,week5-6,late,2025,Relief International,remote
+stu_02_wk08,student_02_week08.txt,student,2,8,week7-8,late,2025,Relief International,remote
+stu_02_wk10,student_02_week10.txt,student,2,10,week9-10,late,2025,Relief International,remote
+stu_03_wk02,student_03_week02.txt,student,3,2,week1-2,early,2025,World Central Kitchen,hybrid
+stu_03_wk04,student_03_week04.txt,student,3,4,week3-4,early,2025,World Central Kitchen,hybrid
+stu_03_wk06,student_03_week06.txt,student,3,6,week5-6,late,2025,World Central Kitchen,hybrid
+stu_03_wk08,student_03_week08.txt,student,3,8,week7-8,late,2025,World Central Kitchen,hybrid
+stu_03_wk10,student_03_week10.txt,student,3,10,week9-10,late,2025,World Central Kitchen,hybrid
+stu_04_wk02,student_04_week02.txt,student,4,2,week1-2,early,2025,George Washington University,hybrid
+stu_04_wk04,student_04_week04.txt,student,4,4,week3-4,early,2025,George Washington University,hybrid
+stu_04_wk06,student_04_week06.txt,student,4,6,week5-6,late,2025,George Washington University,hybrid
+stu_04_wk08,student_04_week08.txt,student,4,8,week7-8,late,2025,George Washington University,hybrid
+stu_04_wk10,student_04_week10.txt,student,4,10,week9-10,late,2025,George Washington University,hybrid
+stu_05_wk02,student_05_week02.txt,student,5,2,week1-2,early,2025,World Central Kitchen,hybrid
+stu_05_wk04,student_05_week04.txt,student,5,4,week3-4,early,2025,World Central Kitchen,hybrid
+stu_05_wk06,student_05_week06.txt,student,5,6,week5-6,late,2025,World Central Kitchen,hybrid
+stu_05_wk08,student_05_week08.txt,student,5,8,week7-8,late,2025,World Central Kitchen,hybrid
+stu_05_wk10,student_05_week10.txt,student,5,10,week9-10,late,2025,World Central Kitchen,hybrid
+stu_06_wk02,student_06_week02.txt,student,6,2,week1-2,early,2025,Save the Children,hybrid
+stu_06_wk04,student_06_week04.txt,student,6,4,week3-4,early,2025,Save the Children,hybrid
+stu_06_wk06,student_06_week06.txt,student,6,6,week5-6,late,2025,Save the Children,hybrid
+stu_06_wk08,student_06_week08.txt,student,6,8,week7-8,late,2025,Save the Children,hybrid
+stu_06_wk10,student_06_week10.txt,student,6,10,week9-10,late,2025,Save the Children,hybrid
+stu_07_wk02,student_07_week02.txt,student,7,2,week1-2,early,2025,World Central Kitchen,hybrid
+stu_07_wk04,student_07_week04.txt,student,7,4,week3-4,early,2025,World Central Kitchen,hybrid
+stu_07_wk06,student_07_week06.txt,student,7,6,week5-6,late,2025,World Central Kitchen,hybrid
+stu_07_wk08,student_07_week08.txt,student,7,8,week7-8,late,2025,World Central Kitchen,hybrid
+stu_07_wk10,student_07_week10.txt,student,7,10,week9-10,late,2025,World Central Kitchen,hybrid
+stu_08_wk02,student_08_week02.txt,student,8,2,week1-2,early,2025,A Wider Circle,hybrid
+stu_08_wk04,student_08_week04.txt,student,8,4,week3-4,early,2025,A Wider Circle,hybrid
+stu_08_wk06,student_08_week06.txt,student,8,6,week5-6,late,2025,A Wider Circle,hybrid
+stu_08_wk08,student_08_week08.txt,student,8,8,week7-8,late,2025,A Wider Circle,hybrid
+stu_09_wk02,student_09_week02.txt,student,9,2,week1-2,early,2025,A Wider Circle,hybrid
+stu_09_wk04,student_09_week04.txt,student,9,4,week3-4,early,2025,A Wider Circle,hybrid
+stu_09_wk06,student_09_week06.txt,student,9,6,week5-6,late,2025,A Wider Circle,hybrid
+stu_09_wk08,student_09_week08.txt,student,9,8,week7-8,late,2025,A Wider Circle,hybrid
+stu_09_wk10,student_09_week10.txt,student,9,10,week9-10,late,2025,A Wider Circle,hybrid
+stu_10_wk02,student_10_week02.txt,student,10,2,week1-2,early,2025,A Wider Circle,hybrid
+stu_10_wk04,student_10_week04.txt,student,10,4,week3-4,early,2025,A Wider Circle,hybrid
+stu_10_wk06,student_10_week06.txt,student,10,6,week5-6,late,2025,A Wider Circle,hybrid
+stu_10_wk08,student_10_week08.txt,student,10,8,week7-8,late,2025,A Wider Circle,hybrid
+stu_10_wk10,student_10_week10.txt,student,10,10,week9-10,late,2025,A Wider Circle,hybrid
+stu_11_wk02,student_11_week02.txt,student,11,2,week1-2,early,2025,Jubilee Housing,hybrid
+stu_11_wk04,student_11_week04.txt,student,11,4,week3-4,early,2025,Jubilee Housing,hybrid
+stu_11_wk06,student_11_week06.txt,student,11,6,week5-6,late,2025,Jubilee Housing,hybrid
+stu_11_wk08,student_11_week08.txt,student,11,8,week7-8,late,2025,Jubilee Housing,hybrid
+stu_11_wk10,student_11_week10.txt,student,11,10,week9-10,late,2025,Jubilee Housing,hybrid
+stu_12_wk02,student_12_week02.txt,student,12,2,week1-2,early,2025,World Central Kitchen,hybrid
+stu_12_wk04,student_12_week04.txt,student,12,4,week3-4,early,2025,World Central Kitchen,hybrid
+stu_12_wk06,student_12_week06.txt,student,12,6,week5-6,late,2025,World Central Kitchen,hybrid
+stu_12_wk08,student_12_week08.txt,student,12,8,week7-8,late,2025,World Central Kitchen,hybrid
+stu_12_wk10,student_12_week10.txt,student,12,10,week9-10,late,2025,World Central Kitchen,hybrid
+stu_13_wk02,student_13_week02.txt,student,13,2,week1-2,early,2025,Save the Children,hybrid
+stu_13_wk04,student_13_week04.txt,student,13,4,week3-4,early,2025,Save the Children,hybrid
+stu_13_wk06,student_13_week06.txt,student,13,6,week5-6,late,2025,Save the Children,hybrid
+stu_13_wk08,student_13_week08.txt,student,13,8,week7-8,late,2025,Save the Children,hybrid
+stu_14_wk02,student_14_week02.txt,student,14,2,week1-2,early,2025,CARE,hybrid
+stu_14_wk04,student_14_week04.txt,student,14,4,week3-4,early,2025,CARE,hybrid
+stu_14_wk06,student_14_week06.txt,student,14,6,week5-6,late,2025,CARE,hybrid
+stu_14_wk08,student_14_week08.txt,student,14,8,week7-8,late,2025,CARE,hybrid
+stu_14_wk10,student_14_week10.txt,student,14,10,week9-10,late,2025,CARE,hybrid
+stu_15_wk02,student_15_week02.txt,student,15,2,week1-2,early,2025,Engineers Without Borders,remote
+stu_15_wk04,student_15_week04.txt,student,15,4,week3-4,early,2025,Engineers Without Borders,remote
+stu_15_wk06,student_15_week06.txt,student,15,6,week5-6,late,2025,Engineers Without Borders,remote
+stu_15_wk08,student_15_week08.txt,student,15,8,week7-8,late,2025,Engineers Without Borders,remote
+stu_15_wk10,student_15_week10.txt,student,15,10,week9-10,late,2025,Engineers Without Borders,remote
+stu_16_wk02,student_16_week02.txt,student,16,2,week1-2,early,2025,Jubilee Housing,hybrid
+stu_16_wk04,student_16_week04.txt,student,16,4,week3-4,early,2025,Jubilee Housing,hybrid
+stu_16_wk06,student_16_week06.txt,student,16,6,week5-6,late,2025,Jubilee Housing,hybrid
+stu_16_wk08,student_16_week08.txt,student,16,8,week7-8,late,2025,Jubilee Housing,hybrid
+stu_16_wk10,student_16_week10.txt,student,16,10,week9-10,late,2025,Jubilee Housing,hybrid
+stu_17_wk02,student_17_week02.txt,student,17,2,week1-2,early,2025,Project Hope,remote
+stu_17_wk04,student_17_week04.txt,student,17,4,week3-4,early,2025,Project Hope,remote
+stu_17_wk06,student_17_week06.txt,student,17,6,week5-6,late,2025,Project Hope,remote
+stu_17_wk08,student_17_week08.txt,student,17,8,week7-8,late,2025,Project Hope,remote
+stu_17_wk10,student_17_week10.txt,student,17,10,week9-10,late,2025,Project Hope,remote
+stu_18_wk02,student_18_week02.txt,student,18,2,week1-2,early,2025,Engineers Without Borders,remote
+stu_18_wk04,student_18_week04.txt,student,18,4,week3-4,early,2025,Engineers Without Borders,remote
+stu_18_wk06,student_18_week06.txt,student,18,6,week5-6,late,2025,Engineers Without Borders,remote
+stu_18_wk08,student_18_week08.txt,student,18,8,week7-8,late,2025,Engineers Without Borders,remote
+stu_18_wk10,student_18_week10.txt,student,18,10,week9-10,late,2025,Engineers Without Borders,remote
+stu_19_wk02,student_19_week02.txt,student,19,2,week1-2,early,2025,Project Hope,remote
+stu_19_wk04,student_19_week04.txt,student,19,4,week3-4,early,2025,Project Hope,remote
+stu_19_wk06,student_19_week06.txt,student,19,6,week5-6,late,2025,Project Hope,remote
+stu_19_wk08,student_19_week08.txt,student,19,8,week7-8,late,2025,Project Hope,remote
+stu_19_wk10,student_19_week10.txt,student,19,10,week9-10,late,2025,Project Hope,remote
+sup_01,supervisor_01_finalinterview.txt,supervisor,1,NA,final,late,2025,CARE,NA
+sup_02,supervisor_02_finalinterview.txt,supervisor,2,NA,final,late,2025,Jubilee Housing,NA
+sup_03,supervisor_03_finalinterview.txt,supervisor,3,NA,final,late,2025,Engineers Without Borders,NA
+sup_04,supervisor_04_finalinterview.txt,supervisor,4,NA,final,late,2025,Jubilee Housing,NA
+sup_05,supervisor_05_finalinterview.txt,supervisor,5,NA,final,late,2025,A Wider Circle,NA
+sup_06,supervisor_06_finalinterview.txt,supervisor,6,NA,final,late,2025,World Central Kitchen,NA
+sup_07,supervisor_07_finalinterview.txt,supervisor,7,NA,final,late,2025,Save the Children,NA
+sup_08,supervisor_08_finalinterview.txt,supervisor,8,NA,final,late,2025,World Central Kitchen,NA
+sup_09,supervisor_09_finalinterview.txt,supervisor,9,NA,final,late,2025,A Wider Circle,NA
+sup_10,supervisor_10_finalinterview.txt,supervisor,10,NA,final,late,2025,A Wider Circle,NA
+sup_11,supervisor_11_finalinterview.txt,supervisor,11,NA,final,late,2025,Relief International,NA
+sup_12,supervisor_12_finalinterview.txt,supervisor,12,NA,final,late,2025,Engineers Without Borders,NA
+sup_13,supervisor_13_finalinterview.txt,supervisor,13,NA,final,late,2025,Project Hope,NA

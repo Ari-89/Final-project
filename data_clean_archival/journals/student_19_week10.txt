@@ -1,0 +1,5 @@
+I continued analyzing data from the Youth Mental Health and Resilience Program implemented in Nigeria, the U.S. Virgin Islands, and Costa Rica. I conducted statistical tests and applied Excel formulas to assess program impact and draw evidence-based conclusions regarding implementation outcomes across different contexts.
+
+A key skill I developed was increased proficiency in Excel-based statistical analysis and the ability to translate quantitative findings into meaningful qualitative insights. A significant challenge I encountered was identifying and removing invalid or inconsistent data within the spreadsheet. I addressed this by carefully reviewing entries, validating data points, and systematically cleaning the dataset to ensure accuracy prior to analysis.
+
+My priority moving forward is to complete the data analysis so that the findings can be incorporated into a research article evaluating the program’s implementation and impact.

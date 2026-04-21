@@ -1,0 +1,5 @@
+I completed the cross-referencing platform and developed a setup script to allow new users to run the application locally by cloning the repository. This script automates installation and configuration steps, ensuring consistency across systems. The organization is now preparing the platform for deployment.
+
+I gained insight into managing an end-to-end technical project, from development through deployment preparation. I learned how to configure applications across varied environments and ensure compatibility across different system setups. A major challenge involved guaranteeing seamless functionality across machines. To address this, I created an automated setup script to streamline installation and minimize manual troubleshooting, improving reliability and accessibility for future users.
+
+I will transition from the internship while maintaining professional connections established during this experience. I will also begin a new academic program coordination role, focusing on understanding responsibilities and performing effectively in the new position.

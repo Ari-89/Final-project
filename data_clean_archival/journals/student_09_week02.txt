@@ -1,0 +1,5 @@
+I conducted in-depth data analysis on a furniture poverty dataset, identifying trends and service gaps to inform outreach strategies and resource allocation. I also assisted with client services, supporting families receiving furniture and gaining direct insight into the impact of the organization’s work. Additionally, I contributed to a data integration project involving Mailchimp and Little Green Light (LGL), focusing on data filtering and segmentation to improve donor and volunteer communications.
+
+I strengthened my skills in data filtering, segmentation, and cleaning to support targeted engagement strategies. I also gained hands-on experience in nonprofit data management and the use of digital platforms for outreach and communication.
+
+I plan to continue analyzing furniture-related datasets to uncover insights for program improvement, refine contact segmentation strategies in communication platforms, support on-site client services, document data processes for continuity, and explore opportunities to streamline workflows through automation.

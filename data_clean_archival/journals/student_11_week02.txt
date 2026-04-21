@@ -1,0 +1,5 @@
+I generated reports from two data management systems and began developing a cross-reference sheet to align records across both platforms. This involved cleaning datasets, reconciling mismatched entries, and identifying inconsistencies to streamline data synchronization. The objective was to improve efficiency when accessing and cross-referencing information across systems.
+
+I gained insight into the complexity of working with inconsistent real-world data. While aligning records, I encountered numerous formatting discrepancies and incomplete entries. To address this, I developed a Python script to automate portions of the merging process and reduce manual comparison time. Although automation improved efficiency, some records remained unmatched due to structural differences, prompting iterative adjustments to improve accuracy and matching logic.
+
+I plan to refine the script to better manage inconsistencies and reduce mismatches. I will also test the tool on additional datasets to ensure scalability and adaptability across different properties and reporting contexts.

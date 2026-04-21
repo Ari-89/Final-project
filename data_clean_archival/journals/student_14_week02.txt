@@ -1,0 +1,5 @@
+I reviewed grant proposals and project narratives related to the development of minimum standards for digital gender-based violence tools. I also cleaned and analyzed a dataset consisting of focus group discussions and key informant consultations conducted with women and girls in humanitarian settings. In addition, I updated a humanitarian surge fund tracker based on country-level reporting from the previous year.
+
+I developed a deeper understanding of the access barriers faced by women and girls in crisis contexts, particularly regarding digital literacy and access limitations. A major challenge involved cleaning and coding a large dataset with over 500 entries into structured categories. To improve efficiency, I researched and applied advanced spreadsheet functions and coding techniques, which streamlined the categorization process and strengthened my data management skills.
+
+I plan to draft an analytical report summarizing key findings from the dataset and prepare a presentation to share insights with leadership within the gender-based violence team.

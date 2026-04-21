@@ -1,0 +1,5 @@
+I continued analyzing Volunteer Experience Survey responses by categorizing qualitative feedback into structured code categories for use in a future formal report. I also began restructuring a large organizational contacts database, redesigning a complex spreadsheet to improve clarity, usability, and long-term data management. This required organizing and cleaning records using SQL and Excel to enhance internal systems.
+
+A key skill I developed was strengthening my technical proficiency in database management tools, particularly SQL queries and advanced Excel functions. A challenge I encountered was navigating and restructuring a large dataset for the first time. Managing a high-volume contact database required careful attention to organization, formatting consistency, and data integrity. I addressed this by collaborating closely with colleagues, seeking guidance when needed, and iterating on the spreadsheet design to improve functionality.
+
+I aim to deepen my understanding of Salesforce and the organization’s volunteer management platform to better connect backend data systems with volunteer engagement strategies.

@@ -1,0 +1,65 @@
+---
+title: "Final Project: HIP Analysis"
+author: "Ariunjargal Khaltarkhuu"
+date: today
+format: pdf
+editor: source
+---
+# Install and Load Packages
+
+```{r}
+#install.packages(c(
+  "tidyverse",
+  "readtext",
+  "tidytext",
+  "quanteda",
+  "quanteda.textstats",
+  "quanteda.textplots",
+  "topicmodels",
+  "stm",
+  "janitor",
+  "stringr",
+  "lubridate",
+  "textstem",
+  "widyr",
+  "tidylo"
+))
+```
+
+```{r}
+library(tidyverse)
+library(readtext)
+library(tidytext)
+library(quanteda)
+library(quanteda.textstats)
+library(quanteda.textplots)
+library(topicmodels)
+library(stm)
+library(janitor)
+library(stringr)
+library(lubridate)
+library(textstem)
+library(widyr)
+library(tidylo)
+```
+
+# Import and merge all text, metadata
+```{r}
+journals <- readtext("data_clean_archival/journals/*.txt")
+interviews <- readtext("data_clean_archival/interviews/*.txt")
+```
+
+```{r}
+all_text <- bind_rows(journals, interviews)
+```
+
+```{r}
+all_text <- all_text %>%
+  rename(file_name = doc_id,
+         text_original = text)
+```
+
+```{r}
+meta <- read_csv("metadata/metadata.csv") %>%
+  clean_names()
+```

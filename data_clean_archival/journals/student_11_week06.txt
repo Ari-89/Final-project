@@ -1,0 +1,5 @@
+I continued generating reports from two internal data systems and began developing the backend infrastructure of a web-based platform designed to cross-reference records between them. The objective was to improve how data is retrieved, stored, and managed, creating a more efficient and scalable internal system for aligning records across platforms.
+
+I gained insight into what it takes to build a web platform from the ground up for internal organizational use. A major challenge involved handling inconsistent and incomplete data while striving to improve dataset accuracy. To address this, I relied on a Python script to automate portions of the cleaning and reconciliation process, increasing reliability and reducing manual intervention.
+
+I plan to continue developing both the backend and frontend components of the cross-referencing platform. My goal is to complete core functionality and begin testing the system across datasets from multiple properties to ensure scalability and performance.

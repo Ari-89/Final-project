@@ -1,0 +1,5 @@
+I continued working directly with clients one day per week, assisting with furniture selection and identifying their needs. I also completed development of a chatbot using Google Dialogflow for the organization’s website to improve client access to services and frequently asked questions. In addition, I finalized and reviewed prior work on subscriber segmentation to ensure clean and well-organized data for ongoing communication efforts.
+
+I strengthened my skills in designing conversational flows and deepened my understanding of user-centered design and foundational natural language processing concepts. A challenge I encountered involved structuring intuitive and effective dialogue paths within the chatbot. To address this, I researched common user queries, examined examples of successful chatbot designs, and iteratively refined the structure based on testing to improve clarity and usability.
+
+I will complete materials for an upcoming presentation and prepare for the transition back to academic and internship responsibilities.
