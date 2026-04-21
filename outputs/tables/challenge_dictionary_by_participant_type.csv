@@ -1,0 +1,15 @@
+participant_type,category,mean_hits_1000
+student,application_of_knowledge,8.662813384327947
+student,communication,8.919573369927889
+student,emotional_stress,7.042445631270127
+student,logistics,9.60437258798319
+student,problem_response,6.972170590076402
+student,role_ambiguity,8.621144355715323
+student,supervision,7.086958639181826
+student,workload,11.014664409773264
+supervisor,application_of_knowledge,0.9530118353647765
+supervisor,emotional_stress,1.1982696454901434
+supervisor,logistics,2.205923165072389
+supervisor,role_ambiguity,2.841154863412919
+supervisor,supervision,1.9182307708282003
+supervisor,workload,5.185190598054909

@@ -2557,3 +2557,568 @@ write_csv(
   "outputs/tables/lda_topic_labels_supervisors.csv"
 )
 ```
+
+## Deductive- Dictionary categorization model 
+
+```{r}
+# Final corpus-specific dictionaries in R
+# Word-level dictionary
+library(tidyverse)
+
+dictionary_words <- tribble(
+  ~domain, ~category, ~term,
+
+  # -------------------------
+  # STRENGTHS
+  # -------------------------
+  "strengths", "support_mentorship", "support",
+  "strengths", "support_mentorship", "helpful",
+  "strengths", "support_mentorship", "feedback",
+  "strengths", "support_mentorship", "guidance",
+  "strengths", "support_mentorship", "supervisor",
+  "strengths", "support_mentorship", "mentor",
+  "strengths", "support_mentorship", "responsive",
+  "strengths", "support_mentorship", "available",
+
+  "strengths", "learning_opportunities", "learned",
+  "strengths", "learning_opportunities", "learning",
+  "strengths", "learning_opportunities", "insight",
+  "strengths", "learning_opportunities", "understanding",
+  "strengths", "learning_opportunities", "exposure",
+  "strengths", "learning_opportunities", "experience",
+  "strengths", "learning_opportunities", "gained",
+
+  "strengths", "meaningful_work", "meaningful",
+  "strengths", "meaningful_work", "community",
+  "strengths", "meaningful_work", "engagement",
+  "strengths", "meaningful_work", "impact",
+  "strengths", "meaningful_work", "contribution",
+  "strengths", "meaningful_work", "outreach",
+
+  "strengths", "professional_growth", "professional",
+  "strengths", "professional_growth", "growth",
+  "strengths", "professional_growth", "developed",
+  "strengths", "professional_growth", "strengthened",
+  "strengths", "professional_growth", "improved",
+  "strengths", "professional_growth", "prepared",
+
+  "strengths", "confidence_autonomy", "confidence",
+  "strengths", "confidence_autonomy", "confident",
+  "strengths", "confidence_autonomy", "independent",
+  "strengths", "confidence_autonomy", "initiative",
+  "strengths", "confidence_autonomy", "ownership",
+  "strengths", "confidence_autonomy", "comfortable",
+
+  "strengths", "skill_development", "skills",
+  "strengths", "skill_development", "ability",
+
+  "strengths", "organizational_exposure", "department",
+  "strengths", "organizational_exposure", "internal",
+  "strengths", "organizational_exposure", "donor",
+  "strengths", "organizational_exposure", "meetings",
+
+  # -------------------------
+  # CHALLENGES
+  # -------------------------
+  "challenges", "workload", "workload",
+  "challenges", "workload", "busy",
+  "challenges", "workload", "pressure",
+  "challenges", "workload", "time",
+  "challenges", "workload", "competing",
+  "challenges", "workload", "multiple",
+
+  "challenges", "communication", "messaging",
+  "challenges", "communication", "statements",
+  "challenges", "communication", "unclear",
+  "challenges", "communication", "clarity",
+
+  "challenges", "supervision", "manager",
+  "challenges", "supervision", "guidance",
+  "challenges", "supervision", "availability",
+
+  "challenges", "role_ambiguity", "uncertainty",
+  "challenges", "role_ambiguity", "expectations",
+  "challenges", "role_ambiguity", "confusing",
+  "challenges", "role_ambiguity", "scope",
+  "challenges", "role_ambiguity", "direction",
+
+  "challenges", "logistics", "remote",
+  "challenges", "logistics", "hybrid",
+  "challenges", "logistics", "virtual",
+  "challenges", "logistics", "schedule",
+  "challenges", "logistics", "onboarding",
+
+  "challenges", "emotional_stress", "stress",
+  "challenges", "emotional_stress", "hard",
+  "challenges", "emotional_stress", "difficult",
+  "challenges", "emotional_stress", "overwhelming",
+
+  "challenges", "application_of_knowledge", "apply",
+  "challenges", "application_of_knowledge", "applying",
+  "challenges", "application_of_knowledge", "academic",
+
+  # -------------------------
+  # SKILL DEVELOPMENT
+  # -------------------------
+  "skills", "technical_skills", "data",
+  "skills", "technical_skills", "research",
+  "skills", "technical_skills", "indicator",
+  "skills", "technical_skills", "indicators",
+  "skills", "technical_skills", "monitoring",
+  "skills", "technical_skills", "evaluation",
+  "skills", "technical_skills", "dashboard",
+  "skills", "technical_skills", "tableau",
+  "skills", "technical_skills", "sql",
+  "skills", "technical_skills", "chatbot",
+
+  "skills", "communication_skills", "communication",
+  "skills", "communication_skills", "written",
+  "skills", "communication_skills", "writing",
+  "skills", "communication_skills", "report",
+  "skills", "communication_skills", "reporting",
+  "skills", "communication_skills", "presentation",
+  "skills", "communication_skills", "article",
+  "skills", "communication_skills", "media",
+
+  "skills", "leadership", "lead",
+  "skills", "leadership", "led",
+  "skills", "leadership", "coordinated",
+  "skills", "leadership", "managed",
+  "skills", "leadership", "planning",
+  "skills", "leadership", "activation",
+  "skills", "leadership", "organized",
+
+  "skills", "teamwork", "team",
+  "skills", "teamwork", "partner",
+  "skills", "teamwork", "collaborating",
+  "skills", "teamwork", "coordination",
+
+  "skills", "intercultural_competence", "client",
+  "skills", "intercultural_competence", "stakeholder",
+
+  "skills", "problem_solving", "challenge",
+  "skills", "problem_solving", "ensure",
+  "skills", "problem_solving", "refine",
+  "skills", "problem_solving", "improve",
+  "skills", "problem_solving", "addressed",
+  "skills", "problem_solving", "solution",
+
+  "skills", "applied_academic_learning", "coursework",
+  "skills", "applied_academic_learning", "practice",
+  "skills", "applied_academic_learning", "theory",
+  "skills", "applied_academic_learning", "application",
+
+  # -------------------------
+  # PROGRAM IMPROVEMENT / STRUCTURE
+  # -------------------------
+  "program_structure", "onboarding", "onboarding",
+  "program_structure", "onboarding", "orientation",
+  "program_structure", "onboarding", "initial",
+  "program_structure", "onboarding", "setup",
+  "program_structure", "onboarding", "access",
+
+  "program_structure", "work_arrangement", "remote",
+  "program_structure", "work_arrangement", "hybrid",
+  "program_structure", "work_arrangement", "virtual",
+  "program_structure", "work_arrangement", "schedule",
+  "program_structure", "work_arrangement", "arrangement",
+
+  "program_structure", "training_preparation", "training",
+  "program_structure", "training_preparation", "prepared",
+  "program_structure", "training_preparation", "preparation",
+  "program_structure", "training_preparation", "tutorials",
+  "program_structure", "training_preparation", "standards",
+
+  "program_structure", "supervision_structure", "supervisor",
+  "program_structure", "supervision_structure", "manager",
+  "program_structure", "supervision_structure", "feedback",
+  "program_structure", "supervision_structure", "check",
+  "program_structure", "supervision_structure", "oversight",
+
+  "program_structure", "placement_fit", "fit",
+  "program_structure", "placement_fit", "match",
+  "program_structure", "placement_fit", "alignment",
+  "program_structure", "placement_fit", "interest",
+
+  "program_structure", "sustainability_pipeline", "continue",
+  "program_structure", "sustainability_pipeline", "future",
+  "program_structure", "sustainability_pipeline", "paid",
+  "program_structure", "sustainability_pipeline", "employer",
+  "program_structure", "sustainability_pipeline", "pipeline"
+)
+```
+
+```{r}
+dictionary_words %>%
+  count(term, sort = TRUE) %>%
+  filter(n > 1) %>%
+  print(n = Inf)
+```
+
+```{r}
+dict_word_counts <- dict_tokens %>%
+  inner_join(dictionary_words, by = c("word" = "term")) %>%
+  count(
+    doc_id, participant_type, early_late, work_mode, organization_name,
+    domain, category,
+    name = "word_hits"
+  )
+```
+
+```{r}
+dictionary_words %>%
+  count(term, sort = TRUE) %>%
+  filter(n > 1) %>%
+  print(n = Inf)
+```
+```{r}
+# Phrase-level dictionary
+dictionary_phrases <- tribble(
+  ~domain, ~category, ~phrase,
+
+  # STRENGTHS
+  "strengths", "support_mentorship", "my supervisor",
+  "strengths", "support_mentorship", "with my supervisor",
+  "strengths", "learning_opportunities", "gained insight into",
+  "strengths", "learning_opportunities", "to better understand",
+  "strengths", "professional_growth", "strengthened my",
+  "strengths", "professional_growth", "i gained",
+  "strengths", "confidence_autonomy", "my ability to",
+  "strengths", "skill_development", "strengthened my ability",
+  "strengths", "organizational_exposure", "my responsibilities included",
+
+  # CHALLENGES
+  "challenges", "role_ambiguity", "a key challenge",
+  "challenges", "role_ambiguity", "a challenge involved",
+  "challenges", "emotional_stress", "i encountered",
+  "challenges", "problem_response", "to address this",
+  "challenges", "problem_response", "addressed this by",
+
+  # SKILLS
+  "skills", "technical_skills", "monitoring and evaluation",
+  "skills", "technical_skills", "safety and security",
+  "skills", "technical_skills", "youth mental health",
+  "skills", "technical_skills", "a key skill",
+  "skills", "applied_academic_learning", "my understanding of",
+  "skills", "problem_solving", "addressed this by",
+  "skills", "problem_solving", "to address this",
+  "skills", "leadership", "my responsibilities included",
+
+  # PROGRAM STRUCTURE
+  "program_structure", "work_arrangement", "work mode",
+  "program_structure", "work_arrangement", "remote work",
+  "program_structure", "training_preparation", "professional standards",
+  "program_structure", "supervision_structure", "check in",
+  "program_structure", "supervision_structure", "check-in",
+  "program_structure", "placement_fit", "good fit",
+  "program_structure", "sustainability_pipeline", "talent pipeline"
+)
+```
+
+```{r}
+library(tidyverse)
+library(tidytext)
+library(stringr)
+library(janitor)
+```
+
+```{r}
+corpus_dict <- corpus_df %>%
+  mutate(
+    text_dict = text_original %>%
+      str_to_lower() %>%
+      str_replace_all("[[:punct:]]", " ") %>%
+      str_replace_all("\\s+", " ") %>%
+      str_trim(),
+    word_count = str_count(text_original, "\\S+")
+  )
+```
+
+```{r}
+# Apply the word-level dictionary
+# Tokenize
+dict_tokens <- corpus_dict %>%
+  select(doc_id, participant_type, early_late, work_mode, organization_name, word_count, text_dict) %>%
+  unnest_tokens(word, text_dict)
+```
+
+```{r}
+# Apply the word-level dictionary
+# Match word dictionary
+dict_word_counts <- dict_tokens %>%
+  inner_join(dictionary_words, by = c("word" = "term")) %>%
+  count(doc_id, participant_type, early_late, work_mode, organization_name,
+        domain, category, name = "word_hits")
+```
+
+```{r}
+# Apply the phrase-level dictionary
+# Count phrase matches
+dict_phrase_counts <- corpus_dict %>%
+  crossing(dictionary_phrases) %>%
+  mutate(
+    phrase_hits = str_count(text_dict, fixed(phrase))
+  ) %>%
+  filter(phrase_hits > 0) %>%
+  select(doc_id, participant_type, early_late, work_mode, organization_name,
+         word_count, domain, category, phrase, phrase_hits)
+```
+
+```{r}
+# Combine word + phrase hits
+dict_phrase_summary <- dict_phrase_counts %>%
+  group_by(doc_id, participant_type, early_late, work_mode, organization_name,
+           domain, category) %>%
+  summarise(phrase_hits = sum(phrase_hits), .groups = "drop")
+
+dict_all_counts <- dict_word_counts %>%
+  full_join(
+    dict_phrase_summary,
+    by = c("doc_id", "participant_type", "early_late", "work_mode",
+           "organization_name", "domain", "category")
+  ) %>%
+  mutate(
+    word_hits = replace_na(word_hits, 0),
+    phrase_hits = replace_na(phrase_hits, 0),
+    total_hits = word_hits + phrase_hits
+  ) %>%
+  left_join(
+    corpus_dict %>% select(doc_id, word_count),
+    by = "doc_id"
+  ) %>%
+  mutate(
+    hits_per_1000 = (total_hits / word_count) * 1000
+  )
+```
+
+```{r}
+dict_all_counts %>%
+  filter(domain == "challenges") %>%
+  count(participant_type, sort = TRUE)
+```
+
+```{r}
+dict_all_counts %>%
+  filter(is.na(participant_type)) %>%
+  distinct(doc_id, organization_name, work_mode)
+```
+
+```{r}
+challenge_by_type <- dict_all_counts %>%
+  filter(
+    domain == "challenges",
+    !is.na(doc_id),
+    !is.na(participant_type),
+    participant_type != "NA"
+  ) %>%
+  group_by(participant_type, category) %>%
+  summarise(mean_hits_1000 = mean(hits_per_1000, na.rm = TRUE), .groups = "drop")
+```
+
+```{r}
+dict_all_counts_clean <- dict_all_counts %>%
+  filter(
+    !is.na(doc_id),
+    !is.na(participant_type),
+    participant_type != "NA"
+  )
+```
+
+```{r}
+challenge_by_type <- dict_all_counts_clean %>%
+  filter(domain == "challenges") %>%
+  group_by(participant_type, category) %>%
+  summarise(mean_hits_1000 = mean(hits_per_1000, na.rm = TRUE), .groups = "drop")
+```
+
+```{r}
+dict_all_counts_clean %>%
+  count(participant_type, sort = TRUE)
+```
+
+```{r}
+# RQ2: dictionary-based challenge categorization
+# Clean the combined dictionary counts first
+dict_all_counts_clean <- dict_all_counts %>%
+  filter(
+    !is.na(doc_id),
+    !is.na(participant_type),
+    participant_type != "NA"
+  )
+```
+
+```{r}
+# RQ2: dictionary-based challenge categorization
+# Challenge category frequencies by participant type
+challenge_by_type <- dict_all_counts_clean %>%
+  filter(domain == "challenges") %>%
+  group_by(participant_type, category) %>%
+  summarise(mean_hits_1000 = mean(hits_per_1000, na.rm = TRUE), .groups = "drop")
+```
+
+```{r}
+# Plot
+challenge_by_type_plot <- challenge_by_type %>%
+  ggplot(aes(x = category, y = mean_hits_1000, fill = participant_type)) +
+  geom_col(position = "dodge") +
+  coord_flip() +
+  labs(
+    title = "Challenge Dictionary Frequencies by Participant Type",
+    x = NULL,
+    y = "Mean hits per 1,000 words"
+  )
+
+challenge_by_type_plot
+```
+
+```{r}
+# save
+ggsave(
+  filename = "outputs/figures/challenge_dictionary_by_participant_type.png",
+  plot = challenge_by_type_plot,
+  width = 9,
+  height = 6,
+  dpi = 300
+)
+
+write_csv(
+  challenge_by_type,
+  "outputs/tables/challenge_dictionary_by_participant_type.csv"
+)
+```
+
+```{r}
+# dictionary-based skill categorization
+# Skill categories by early vs late
+skills_by_earlylate <- dict_all_counts_clean %>%
+  filter(
+    domain == "skills",
+    participant_type == "student",
+    !is.na(early_late),
+    early_late != "NA"
+  ) %>%
+  group_by(early_late, category) %>%
+  summarise(mean_hits_1000 = mean(hits_per_1000, na.rm = TRUE), .groups = "drop")
+```
+
+```{r}
+# Plot
+skills_by_earlylate_plot <- skills_by_earlylate %>%
+  ggplot(aes(x = category, y = mean_hits_1000, fill = early_late)) +
+  geom_col(position = "dodge") +
+  coord_flip() +
+  labs(
+    title = "Skill Development Categories in Early vs Late Journals",
+    x = NULL,
+    y = "Mean hits per 1,000 words"
+  )
+
+skills_by_earlylate_plot
+```
+
+```{r}
+# Save
+ggsave(
+  filename = "outputs/figures/skills_dictionary_early_vs_late.png",
+  plot = skills_by_earlylate_plot,
+  width = 9,
+  height = 6,
+  dpi = 300
+)
+
+write_csv(
+  skills_by_earlylate,
+  "outputs/tables/skills_dictionary_early_vs_late.csv"
+)
+```
+
+```{r}
+# dictionary frequencies by subgroup
+# Build a smaller RQ4 category set
+rq4_dictionary_map <- tribble(
+  ~rq4_group,   ~category,
+  "support",    "support_mentorship",
+  "challenge",  "workload",
+  "challenge",  "communication",
+  "challenge",  "supervision",
+  "challenge",  "role_ambiguity",
+  "challenge",  "logistics",
+  "challenge",  "emotional_stress",
+  "challenge",  "application_of_knowledge",
+  "learning",   "learning_opportunities",
+  "autonomy",   "confidence_autonomy",
+  "workload",   "workload",
+  "mentorship", "support_mentorship",
+  "confidence", "confidence_autonomy"
+)
+```
+
+```{r}
+# Join and summarise by subgroup
+# Early vs late
+rq4_earlylate <- dict_all_counts_clean %>%
+  filter(!is.na(early_late), early_late != "NA") %>%
+  inner_join(rq4_dictionary_map, by = "category") %>%
+  group_by(early_late, rq4_group) %>%
+  summarise(mean_hits_1000 = mean(hits_per_1000, na.rm = TRUE), .groups = "drop")
+```
+
+```{r}
+# Join and summarise by subgroup
+# Work mode
+rq4_workmode <- dict_all_counts_clean %>%
+  filter(!is.na(work_mode), work_mode != "NA") %>%
+  inner_join(rq4_dictionary_map, by = "category") %>%
+  group_by(work_mode, rq4_group) %>%
+  summarise(mean_hits_1000 = mean(hits_per_1000, na.rm = TRUE), .groups = "drop")
+```
+
+```{r}
+# Heatmap: early vs late
+rq4_earlylate_heatmap <- rq4_earlylate %>%
+  ggplot(aes(x = early_late, y = rq4_group, fill = mean_hits_1000)) +
+  geom_tile(color = "white") +
+  labs(
+    title = "Dictionary Frequencies by Subgroup: Early vs Late",
+    x = NULL,
+    y = NULL,
+    fill = "Mean hits\nper 1,000"
+  )
+
+rq4_earlylate_heatmap
+```
+
+```{r}
+ggsave(
+  filename = "outputs/figures/dictionary_heatmap_early_vs_late.png",
+  plot = rq4_earlylate_heatmap,
+  width = 8,
+  height = 6,
+  dpi = 300
+)
+```
+
+```{r}
+# Heatmap: work mode
+rq4_workmode_heatmap <- rq4_workmode %>%
+  ggplot(aes(x = work_mode, y = rq4_group, fill = mean_hits_1000)) +
+  geom_tile(color = "white") +
+  labs(
+    title = "Dictionary Frequencies by Subgroup: Work Mode",
+    x = NULL,
+    y = NULL,
+    fill = "Mean hits\nper 1,000"
+  )
+
+rq4_workmode_heatmap
+```
+
+```{r}
+ggsave(
+  filename = "outputs/figures/dictionary_heatmap_workmode.png",
+  plot = rq4_workmode_heatmap,
+  width = 8,
+  height = 6,
+  dpi = 300
+)
+```
