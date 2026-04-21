@@ -1212,3 +1212,602 @@ word_compare_plot <- ggplot(word_compare, aes(x = student + 1, y = supervisor + 
     y = "Supervisor Frequency (log scale)"
   )
 ```
+
+## Inductive- N-grams stage
+
+```{r}
+meta <- read_csv("metadata/document_metadata.csv") %>%
+  clean_names()
+```
+
+```{r}
+all_text <- bind_rows(journals, interviews) %>%
+  rename(
+    file_name = doc_id,
+    text_original = text
+  ) %>%
+  as_tibble()
+```
+
+```{r}
+corpus_df <- all_text %>%
+  left_join(meta, by = "file_name") %>%
+  as_tibble()
+```
+
+```{r}
+glimpse(corpus_df)
+sum(is.na(corpus_df$participant_type))
+```
+
+```{r}
+corpus_df <- corpus_df %>%
+  mutate(
+    text_ner = str_squish(text_original),
+    text_tf = text_original %>%
+      str_replace_all("\\[.*?\\]", " ") %>%
+      str_to_lower() %>%
+      str_replace_all("[^[:alnum:]\\s]", " ") %>%
+      str_squish(),
+    text_lda = text_original %>%
+      str_replace_all("\\[.*?\\]", " ") %>%
+      str_to_lower() %>%
+      str_replace_all("[^[:alnum:]\\s]", " ") %>%
+      str_squish()
+  )
+```
+
+```{r}
+data(stop_words)
+
+tokens <- corpus_df %>%
+  select(
+    doc_id,
+    participant_type,
+    participant_id,
+    week_number,
+    timepoint,
+    early_late,
+    cohort_year,
+    organization_name,
+    work_mode,
+    text_tf
+  ) %>%
+  unnest_tokens(word, text_tf)
+
+generic_project_words <- tibble(
+  word = c(
+    "intern", "interns", "internship", "internships",
+    "student", "students", "supervisor", "supervisors",
+    "program", "programs", "project", "projects",
+    "organization", "team", "work", "worked", "working",
+    "week", "weeks", "summer", "bit", "guys", "yeah", "so",
+    "gw", "hipp", "really", "also", "would", "could", "one", "like", "just", "lot", "don", "day", "didn", "ve"
+  )
+)
+
+tokens_clean <- tokens %>%
+  anti_join(stop_words, by = "word") %>%
+  anti_join(generic_project_words, by = "word")
+```
+
+```{r}
+# Create bigrams
+library(tidyverse)
+library(tidytext)
+library(stringr)
+library(forcats)
+
+bigrams <- corpus_df %>%
+  select(
+    doc_id,
+    participant_type,
+    early_late,
+    work_mode,
+    cohort_year,
+    organization_name,
+    text_tf
+  ) %>%
+  unnest_tokens(bigram, text_tf, token = "ngrams", n = 2)
+```
+
+```{r}
+# Create trigrams
+trigrams <- corpus_df %>%
+  select(
+    doc_id,
+    participant_type,
+    early_late,
+    work_mode,
+    cohort_year,
+    organization_name,
+    text_tf
+  ) %>%
+  unnest_tokens(trigram, text_tf, token = "ngrams", n = 3)
+```
+
+```{r}
+# Clean bigrams
+library(tidyverse)
+library(tidytext)
+library(stringr)
+
+data(stop_words)
+
+custom_filler_words <- tibble(
+  word = c(
+    "i", "im", "ive", "id",
+    "think", "also", "just", "really", "kind", "sort",
+    "like", "okay", "yeah", "yes", "no", "well"
+  )
+)
+
+bigrams_clean_strict <- bigrams %>%
+  separate(bigram, into = c("word1", "word2"), sep = " ") %>%
+  filter(!is.na(word1), !is.na(word2)) %>%
+  anti_join(stop_words, by = c("word1" = "word")) %>%
+  anti_join(stop_words, by = c("word2" = "word")) %>%
+  anti_join(custom_filler_words, by = c("word1" = "word")) %>%
+  anti_join(custom_filler_words, by = c("word2" = "word")) %>%
+  unite(bigram, word1, word2, sep = " ")
+```
+
+```{r}
+# Clean trigrams
+custom_filler_words <- tibble(
+  word = c(
+    "i", "im", "ive", "id",
+    "think", "also", "just", "really", "kind", "sort",
+    "like", "okay", "yeah", "yes", "no", "well"
+  )
+)
+
+trigrams_clean_strict <- trigrams %>%
+  separate(trigram, into = c("word1", "word2", "word3"), sep = " ") %>%
+  filter(!is.na(word1), !is.na(word2), !is.na(word3)) %>%
+  anti_join(stop_words, by = c("word1" = "word")) %>%
+  anti_join(stop_words, by = c("word2" = "word")) %>%
+  anti_join(stop_words, by = c("word3" = "word")) %>%
+  anti_join(custom_filler_words, by = c("word1" = "word")) %>%
+  anti_join(custom_filler_words, by = c("word2" = "word")) %>%
+  anti_join(custom_filler_words, by = c("word3" = "word")) %>%
+  unite(trigram, word1, word2, word3, sep = " ")
+```
+
+```{r}
+# Inspect top bigrams
+bigram_counts <- bigrams_clean %>%
+  count(bigram, sort = TRUE)
+
+bigram_counts %>% slice_head(n = 40)
+```
+
+```{r}
+trigram_counts <- trigrams_clean %>%
+  count(trigram, sort = TRUE)
+
+trigram_counts %>% slice_head(n = 40)
+```
+
+```{r}
+# example generic phrases
+generic_bigrams <- tibble(
+  bigram = c(
+    "project hope",
+    "world central",
+    "central kitchen",
+    "save the",
+    "relief international",
+    "the student",
+    "this internship",
+    "of the",
+    "for the",
+    "it was",
+    "i think",
+    "i was",
+    "we had"
+  )
+)
+
+generic_trigrams <- tibble(
+  trigram = c(
+    "world central kitchen",
+    "one of the",
+    "a lot of",
+    "it was really",
+    "this was really"
+  )
+)
+```
+
+```{r}
+# Remove generic phrases
+bigrams_clean2 <- bigrams_clean %>%
+  anti_join(generic_bigrams, by = "bigram")
+
+trigrams_clean2 <- trigrams_clean %>%
+  anti_join(generic_trigrams, by = "trigram")
+```
+
+```{r}
+bigrams_clean2 %>%
+  count(bigram, sort = TRUE) %>%
+  slice_head(n = 40)
+
+trigrams_clean2 %>%
+  count(trigram, sort = TRUE) %>%
+  slice_head(n = 40)
+```
+
+```{r}
+# remove more phrases from bigrams
+junk_bigrams <- tibble(
+  bigram = c(
+    "she was", "with the", "plan to", "i plan", "the organization",
+    "that she", "a lot", "in the", "don t", "to the", "it s",
+    "that we", "and then", "have a", "that s", "on the", "lot of",
+    "to be", "that was", "we have", "didn t", "i don", "a key",
+    "and the", "able to", "was a", "how to", "in a", "and we", "to do"
+  )
+)
+```
+
+```{r}
+# remove more phrases from trigrams
+junk_trigrams <- tibble(
+  trigram = c(
+    "don t know", "the organization s", "a couple of", "t know if",
+    "we have a", "with the student", "to complete the", "a little bit",
+    "that she was", "the student was", "didn t have", "for the first",
+    "for the organization", "if it s", "some of the", "to work with"
+  )
+)
+```
+
+```{r}
+# apply
+bigrams_clean3 <- bigrams_clean2 %>%
+  anti_join(junk_bigrams, by = "bigram")
+
+trigrams_clean3 <- trigrams_clean2 %>%
+  anti_join(junk_trigrams, by = "trigram")
+```
+
+```{r}
+# inspect again
+bigrams_clean3 %>%
+  count(bigram, sort = TRUE) %>%
+  slice_head(n = 40)
+
+trigrams_clean3 %>%
+  count(trigram, sort = TRUE) %>%
+  slice_head(n = 40)
+```
+
+```{r}
+# final "junk phrase" removal bigrams
+junk_bigrams2 <- tibble(
+  bigram = c(
+    "of our", "so that", "we were", "with my", "ability to",
+    "aim to", "to have", "focused on", "from the", "so we",
+    "the team", "a great", "an intern", "developed a"
+  )
+)
+```
+
+```{r}
+# final "junk phrase" removal trigrams
+junk_trigrams2 <- tibble(
+  trigram = c(
+    "plan to continue", "plan to complete", "plan to finalize",
+    "was able to", "in terms of", "in the future",
+    "the first week"
+  )
+)
+```
+
+```{r}
+#apply
+bigrams_clean4 <- bigrams_clean3 %>%
+  anti_join(junk_bigrams2, by = "bigram")
+
+trigrams_clean4 <- trigrams_clean3 %>%
+  anti_join(junk_trigrams2, by = "trigram")
+```
+
+```{r}
+bigrams_clean4 %>%
+  count(bigram, sort = TRUE) %>%
+  slice_head(n = 25)
+
+trigrams_clean4 %>%
+  count(trigram, sort = TRUE) %>%
+  slice_head(n = 25)
+```
+
+```{r}
+#final cleanup bigrams and trigrams
+junk_bigrams3 <- tibble(
+  bigram = c(
+    "challenge i", "t know", "for a", "she s", "t have", "within the"
+  )
+)
+
+junk_trigrams3 <- tibble(
+  trigram = c(
+    "the importance of", "mental health and", "don t have",
+    "to finalize the", "be able to", "have a lot",
+    "it s a", "it was a"
+  )
+)
+
+bigrams_clean5 <- bigrams_clean4 %>%
+  anti_join(junk_bigrams3, by = "bigram")
+
+trigrams_clean5 <- trigrams_clean4 %>%
+  anti_join(junk_trigrams3, by = "trigram")
+```
+
+```{r}
+bigrams_clean5 %>%
+  count(bigram, sort = TRUE) %>%
+  slice_head(n = 25)
+
+trigrams_clean5 %>%
+  count(trigram, sort = TRUE) %>%
+  slice_head(n = 25)
+```
+
+```{r}
+# Strength phrase table
+strength_patterns <- c(
+  "strengthened my",
+  "understanding of",
+  "i gained",
+  "my supervisor",
+  "my ability to",
+  "my understanding of",
+  "strengthened my ability",
+  "gained insight into",
+  "to better understand",
+  "a great job"
+)
+
+strength_phrases <- bind_rows(
+  bigrams_clean5 %>%
+    count(bigram, sort = TRUE) %>%
+    filter(str_detect(bigram, str_c(strength_patterns, collapse = "|"))) %>%
+    rename(phrase = bigram),
+  trigrams_clean5 %>%
+    count(trigram, sort = TRUE) %>%
+    filter(str_detect(trigram, str_c(strength_patterns, collapse = "|"))) %>%
+    rename(phrase = trigram)
+) %>%
+  arrange(desc(n))
+
+strength_phrases
+```
+
+```{r}
+# Challenge phrase table
+challenge_patterns_refined <- c(
+  "^a challenge involved$",
+  "^a key challenge$",
+  "^key challenge involved$",
+  "^i encountered$",
+  "^to address this$",
+  "^addressed this by$",
+  "^a challenge arose$"
+)
+```
+
+```{r}
+challenge_phrases_refined <- bind_rows(
+  bigrams_clean5 %>%
+    count(bigram, sort = TRUE) %>%
+    rename(phrase = bigram),
+  trigrams_clean5 %>%
+    count(trigram, sort = TRUE) %>%
+    rename(phrase = trigram)
+) %>%
+  filter(str_detect(phrase, str_c(challenge_patterns_refined, collapse = "|"))) %>%
+  arrange(desc(n))
+
+challenge_phrases_refined
+```
+
+```{r}
+# skill phrase table
+skill_patterns <- c(
+  "monitoring and evaluation",
+  "a key skill",
+  "my ability to",
+  "my understanding of",
+  "strengthened my ability",
+  "gained insight into",
+  "my responsibilities included",
+  "safety and security",
+  "youth mental health"
+)
+
+skill_phrases <- bind_rows(
+  bigrams_clean5 %>%
+    count(bigram, sort = TRUE) %>%
+    filter(str_detect(bigram, str_c(skill_patterns, collapse = "|"))) %>%
+    rename(phrase = bigram),
+  trigrams_clean5 %>%
+    count(trigram, sort = TRUE) %>%
+    filter(str_detect(trigram, str_c(skill_patterns, collapse = "|"))) %>%
+    rename(phrase = trigram)
+) %>%
+  arrange(desc(n))
+
+skill_phrases
+```
+
+```{r}
+# strength lollipop chart
+strength_phrase_plot <- strength_phrases %>%
+  slice_max(n, n = 10, with_ties = FALSE) %>%
+  mutate(phrase = fct_reorder(phrase, n)) %>%
+  ggplot(aes(x = phrase, y = n)) +
+  geom_segment(aes(xend = phrase, y = 0, yend = n)) +
+  geom_point(size = 3) +
+  coord_flip() +
+  labs(
+    title = "Top Strength-Related Phrases",
+    x = NULL,
+    y = "Frequency"
+  )
+
+strength_phrase_plot
+```
+
+```{r}
+# save the strength lollipop chart
+ggsave(
+  filename = "outputs/figures/top_strength_phrases.png",
+  plot = strength_phrase_plot,
+  width = 8,
+  height = 6,
+  dpi = 300
+)
+```
+
+```{r}
+# save the challenge phrase table
+write_csv(
+  challenge_phrases_refined,
+  "outputs/tables/challenge_phrases_refined.csv"
+)
+```
+
+```{r}
+# skill lollipoop chart
+skill_phrase_plot <- skill_phrases %>%
+  slice_max(n, n = 10, with_ties = FALSE) %>%
+  mutate(phrase = fct_reorder(phrase, n)) %>%
+  ggplot(aes(x = phrase, y = n)) +
+  geom_segment(aes(xend = phrase, y = 0, yend = n)) +
+  geom_point(size = 3) +
+  coord_flip() +
+  labs(
+    title = "Top Skill-Related Phrases",
+    x = NULL,
+    y = "Frequency"
+  )
+
+skill_phrase_plot
+```
+
+```{r}
+# save the skill lollipop chart
+ggsave(
+  filename = "outputs/figures/top_skill_phrases.png",
+  plot = skill_phrase_plot,
+  width = 8,
+  height = 6,
+  dpi = 300
+)
+```
+
+```{r}
+write_csv(strength_phrases, "outputs/tables/strength_phrases.csv")
+write_csv(challenge_phrases, "outputs/tables/challenge_phrases.csv")
+write_csv(skill_phrases, "outputs/tables/skill_phrases.csv")
+```
+
+# subgroup n-grams for RQ4
+
+```{r}
+# Early vs late bigrams
+bigram_earlylate <- bigrams_clean5 %>%
+  filter(participant_type == "student") %>%
+  count(early_late, bigram, sort = TRUE)
+
+bigram_earlylate_top10 <- bigram_earlylate %>%
+  filter(!bigram %in% c("organization s", "the first", "to a", "we re", "at the")) %>%
+  group_by(early_late) %>%
+  slice_max(n, n = 10, with_ties = FALSE) %>%
+  ungroup()
+
+bigram_earlylate_top10
+```
+
+```{r}
+# visualize early vs late bigrams (barchart)
+bigram_earlylate_plot <- bigram_earlylate_top10 %>%
+  mutate(bigram = reorder_within(bigram, n, early_late)) %>%
+  ggplot(aes(x = bigram, y = n)) +
+  geom_col() +
+  coord_flip() +
+  scale_x_reordered() +
+  facet_wrap(~ early_late, scales = "free_y") +
+  labs(
+    title = "Top Phrases in Early vs Late Student Journals",
+    x = NULL,
+    y = "Frequency"
+  )
+
+bigram_earlylate_plot
+```
+
+```{r}
+# save
+ggsave(
+  filename = "outputs/figures/top_phrases_early_vs_late.png",
+  plot = bigram_earlylate_plot,
+  width = 9,
+  height = 6,
+  dpi = 300
+)
+```
+
+```{r}
+# Hybrid vs remote bigrams
+bigram_workmode <- bigrams_clean5 %>%
+  filter(!is.na(work_mode), work_mode %in% c("hybrid", "remote")) %>%
+  count(work_mode, bigram, sort = TRUE)
+
+bigram_workmode_top10 <- bigram_workmode %>%
+  filter(!bigram %in% c("organization s", "the first", "to a", "we re", "at the")) %>%
+  group_by(work_mode) %>%
+  slice_max(n, n = 10, with_ties = FALSE) %>%
+  ungroup()
+
+bigram_workmode_top10
+```
+
+```{r}
+# Visualize hybrid vs remote bigrams
+bigram_workmode_plot <- bigram_workmode_top10 %>%
+  mutate(bigram = reorder_within(bigram, n, work_mode)) %>%
+  ggplot(aes(x = bigram, y = n)) +
+  geom_col() +
+  coord_flip() +
+  scale_x_reordered() +
+  facet_wrap(~ work_mode, scales = "free_y") +
+  labs(
+    title = "Top Phrases by Work Mode",
+    x = NULL,
+    y = "Frequency"
+  )
+
+bigram_workmode_plot
+```
+
+```{r}
+ggsave(
+  filename = "outputs/figures/top_phrases_by_work_mode.png",
+  plot = bigram_workmode_plot,
+  width = 9,
+  height = 6,
+  dpi = 300
+)
+```
+
+```{r}
+strength_phrases
+challenge_phrases
+skill_phrases
+```
