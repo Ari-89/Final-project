@@ -2,11 +2,21 @@
 title: "Final Project: HIP Analysis"
 author: "Ariunjargal Khaltarkhuu"
 date: today
-format: pdf
+format:
+  pdf:
+    toc: true
+    number-sections: true
 editor: source
 python:
   executable: "/opt/anaconda3/envs/textmining/bin/python"
 ---
+
+# Introduction
+
+Internships are often framed as opportunities for professional growth, but students and supervisors may experience and describe them differently. This project examines those differences through computational text analysis of student reflection journals and supervisor interview transcripts from the Humanitarian Internship Program. It asks what strengths, challenges, and forms of skill development are most salient in the corpus, and how these patterns vary by participant type, work mode, and time.
+
+Methodologically, the project combines inductive and deductive approaches in a Quarto workflow using R and Python. The inductive stage used TF, TF-IDF, n-grams, named entity recognition, and LDA topic modeling to identify recurring words, phrases, entities, and latent themes. These findings then informed the development of corpus-specific dictionaries for strengths, challenges, skill development, and program structure. By comparing dictionary frequencies across subgroups and pairing them with lexical evidence from earlier analyses, the project examines how internship learning develops over time and across settings.
+
 # Install and Load Packages
 
 ```{r}
@@ -3122,3 +3132,317 @@ ggsave(
   dpi = 300
 )
 ```
+
+## Deductive- Sub-group comparisons with Key variables
+```{r}
+dict_all_counts_clean <- dict_all_counts %>%
+  filter(
+    !is.na(doc_id),
+    !is.na(participant_type),
+    participant_type != "NA"
+  )
+```
+
+```{r}
+# RQ2: Compare students vs supervisors
+# Dictionary comparison by participant type
+dict_by_type <- dict_all_counts_clean %>%
+  group_by(participant_type, domain, category) %>%
+  summarise(mean_hits_1000 = mean(hits_per_1000, na.rm = TRUE), .groups = "drop")
+```
+
+```{r}
+# Heatmap 
+dict_by_type_heatmap <- dict_by_type %>%
+  ggplot(aes(x = participant_type, y = category, fill = mean_hits_1000)) +
+  geom_tile(color = "white") +
+  facet_wrap(~ domain, scales = "free_y") +
+  labs(
+    title = "Dictionary Frequencies by Participant Type",
+    x = NULL,
+    y = NULL,
+    fill = "Mean hits\nper 1,000"
+  )
+
+dict_by_type_heatmap
+```
+
+```{r}
+ggsave(
+  "outputs/figures/dictionary_heatmap_by_participant_type.png",
+  dict_by_type_heatmap,
+  width = 10,
+  height = 8,
+  dpi = 300
+)
+```
+
+```{r}
+# RQ2: Compare early vs late journals
+# Summary by early vs late
+dict_by_earlylate <- dict_all_counts_clean %>%
+  filter(
+    participant_type == "student",
+    !is.na(early_late),
+    early_late != "NA"
+  ) %>%
+  group_by(early_late, domain, category) %>%
+  summarise(mean_hits_1000 = mean(hits_per_1000, na.rm = TRUE), .groups = "drop")
+```
+
+```{r}
+# Heatmap by early vs late
+dict_by_earlylate_heatmap <- dict_by_earlylate %>%
+  ggplot(aes(x = early_late, y = category, fill = mean_hits_1000)) +
+  geom_tile(color = "white") +
+  facet_wrap(~ domain, scales = "free_y") +
+  labs(
+    title = "Dictionary Frequencies in Early vs Late Journals",
+    x = NULL,
+    y = NULL,
+    fill = "Mean hits\nper 1,000"
+  )
+
+dict_by_earlylate_heatmap
+```
+
+```{r}
+ggsave(
+  "outputs/figures/dictionary_heatmap_early_vs_late_full.png",
+  dict_by_earlylate_heatmap,
+  width = 10,
+  height = 8,
+  dpi = 300
+)
+```
+
+```{r}
+# RQ2 and RQ3: Compare work modes
+dict_by_workmode <- dict_all_counts_clean %>%
+  filter(
+    participant_type == "student",
+    !is.na(work_mode),
+    work_mode != "NA"
+  ) %>%
+  group_by(work_mode, domain, category) %>%
+  summarise(mean_hits_1000 = mean(hits_per_1000, na.rm = TRUE), .groups = "drop")
+```
+
+```{r}
+# Heatmap by work mode
+dict_by_workmode_heatmap <- dict_by_workmode %>%
+  ggplot(aes(x = work_mode, y = category, fill = mean_hits_1000)) +
+  geom_tile(color = "white") +
+  facet_wrap(~ domain, scales = "free_y") +
+  labs(
+    title = "Dictionary Frequencies by Work Mode",
+    x = NULL,
+    y = NULL,
+    fill = "Mean hits\nper 1,000"
+  )
+
+dict_by_workmode_heatmap
+```
+
+```{r}
+ggsave(
+  "outputs/figures/dictionary_heatmap_by_work_mode_full.png",
+  dict_by_workmode_heatmap,
+  width = 10,
+  height = 8,
+  dpi = 300
+)
+```
+
+```{r}
+# RQ3: Journal sequence by student
+# R
+dict_by_sequence <- dict_all_counts_clean %>%
+  left_join(corpus_df %>% select(doc_id, participant_id, week_number), by = "doc_id") %>%
+  filter(participant_type == "student", !is.na(week_number)) %>%
+  group_by(participant_id, week_number, domain, category) %>%
+  summarise(mean_hits_1000 = mean(hits_per_1000, na.rm = TRUE), .groups = "drop")
+```
+
+```{r}
+trajectory_categories <- c(
+  "support_mentorship",
+  "learning_opportunities",
+  "professional_growth",
+  "confidence_autonomy",
+  "skill_development",
+  "workload",
+  "role_ambiguity",
+  "communication"
+)
+
+trajectory_by_week <- dict_all_counts_clean %>%
+  left_join(corpus_df %>% select(doc_id, week_number), by = "doc_id") %>%
+  filter(
+    participant_type == "student",
+    !is.na(week_number),
+    category %in% trajectory_categories
+  ) %>%
+  group_by(week_number, category) %>%
+  summarise(mean_hits_1000 = mean(hits_per_1000, na.rm = TRUE), .groups = "drop")
+```
+
+```{r}
+trajectory_by_week_plot <- trajectory_by_week %>%
+  ggplot(aes(x = week_number, y = mean_hits_1000, color = category)) +
+  geom_line(linewidth = 1) +
+  geom_point(size = 2) +
+  labs(
+    title = "Dictionary-Based Learning Trajectories Across Journal Sequence",
+    x = "Journal week number",
+    y = "Mean hits per 1,000 words",
+    color = "Category"
+  )
+
+trajectory_by_week_plot
+```
+
+```{r}
+ggsave(
+  "outputs/figures/dictionary_learning_trajectories_by_week.png",
+  trajectory_by_week_plot,
+  width = 10,
+  height = 6,
+  dpi = 300
+)
+```
+
+## Add lexical pattern comparison alongside dictionary frequencies
+ ```{r}
+# Students vs supervisors pairing
+# Deductive part
+ challenge_by_type_plot
+ ```
+
+ ```{r}
+# Students vs supervisors pairing
+# Deductive part
+ student_supervisor_lexical_support <- tribble(
+  ~category, ~subgroup, ~supporting_words_or_phrases,
+  "role_ambiguity", "student", "uncertainty, confusing, unclear expectations",
+  "emotional_stress", "student", "stress, hard, pressure",
+  "workload", "supervisor", "busy, hard, multiple projects",
+  "support_mentorship", "student", "my supervisor, with my supervisor, feedback"
+)
+
+student_supervisor_lexical_support
+ ```
+
+```{r}
+student_supervisor_lexical_support <- tribble(
+  ~category, ~subgroup, ~supporting_words_or_phrases,
+  "role_ambiguity", "student", "uncertainty, confusing, unclear expectations",
+  "emotional_stress", "student", "stress, hard, pressure",
+  "workload", "supervisor", "busy, hard, multiple projects",
+  "support_mentorship", "student", "my supervisor, with my supervisor, feedback"
+)
+
+write_csv(
+  student_supervisor_lexical_support,
+  "outputs/tables/student_supervisor_lexical_support.csv"
+)
+```
+
+```{r}
+student_supervisor_lexical_support <- tribble(
+  ~category, ~subgroup, ~supporting_words_or_phrases,
+  "role_ambiguity", "student", "uncertainty, confusing, unclear expectations",
+  "emotional_stress", "student", "stress, hard, pressure",
+  "workload", "supervisor", "busy, hard, multiple projects",
+  "support_mentorship", "student", "my supervisor, with my supervisor, feedback"
+)
+
+student_supervisor_lexical_support_plot <- student_supervisor_lexical_support %>%
+  ggplot(aes(x = subgroup, y = category)) +
+  geom_point(size = 3) +
+  labs(
+    title = "Lexical Support for Student vs Supervisor Comparison",
+    x = NULL,
+    y = NULL
+  )
+
+student_supervisor_lexical_support_plot
+
+ggsave(
+  filename = "outputs/figures/student_supervisor_lexical_support_plot.png",
+  plot = student_supervisor_lexical_support_plot,
+  width = 7,
+  height = 4,
+  dpi = 300
+)
+```
+```{r}
+# Early vs late pairing
+# Deductive part
+early_late_lexical_support <- tribble(
+  ~category, ~subgroup, ~supporting_words_or_phrases,
+  "role_ambiguity", "early", "uncertainty, confusing, expectations",
+  "support_mentorship", "early", "support, feedback, my supervisor",
+  "confidence_autonomy", "late", "confidence, strengthened, independence",
+  "skill_development", "late", "my ability to, gained insight into, strengthened my ability"
+)
+
+early_late_lexical_support
+```
+
+#The dictionary comparison between early and late journals suggested a shift from ambiguity and support-seeking toward autonomy and skill development. This temporal pattern was reinforced by TF-IDF and n-gram findings: early journals more often emphasized uncertainty, expectations, and supervisory support, whereas later journals foregrounded phrases such as “strengthened my ability,” “gained insight into,” and “to better understand.” The LDA topic heatmap similarly suggested a movement from adjustment-oriented themes toward professional growth and applied learning.
+
+```{r}
+# Work mode pairing
+# Deductive part
+workmode_lexical_support <- tribble(
+  ~category, ~subgroup, ~supporting_words_or_phrases,
+  "communication", "remote", "messaging, unclear, virtual, schedule",
+  "logistics", "remote", "remote, hybrid, access, onboarding",
+  "organizational_exposure", "hybrid", "department, meetings, team",
+  "teamwork", "hybrid", "coordination, partner, team"
+)
+
+workmode_lexical_support
+```
+
+#Work-mode comparison suggested that remote settings were more strongly associated with communication and logistical categories, while hybrid contexts more often foregrounded organizational exposure and teamwork. This was supported by work-mode TF/TF-IDF outputs, in which remote texts emphasized terms related to scheduling, messaging, and uncertainty, whereas hybrid texts more often referenced meetings, departments, and team interaction.
+
+```{r}
+triangulation_table <- tribble(
+  ~comparison, ~dictionary_result, ~supporting_lexical_evidence, ~interpretation,
+  "Students vs supervisors", "Students higher in role ambiguity", "uncertainty, confusing", "Students foreground lived ambiguity more directly",
+  "Early vs late", "Late journals higher in confidence/autonomy", "strengthened my ability, gained insight into", "Learning trajectory moves toward autonomy",
+  "Work mode", "Remote higher in communication/logistics", "messaging, virtual, schedule", "Remote work creates more coordination-related challenge"
+)
+
+triangulation_table
+```
+
+#Lexical evidence refers to the specific words and multi-word expressions in the corpus that support a broader category-level interpretation.
+
+```{r}
+triangulation_table <- tribble(
+  ~comparison, ~dictionary_result, ~supporting_lexical_evidence, ~interpretation,
+  "Students vs supervisors", "Students higher in role ambiguity", "uncertainty, confusing", "Students foreground lived ambiguity more directly",
+  "Early vs late", "Late journals higher in confidence/autonomy", "strengthened my ability, gained insight into", "Learning trajectory moves toward autonomy",
+  "Work mode", "Remote higher in communication/logistics", "messaging, virtual, schedule", "Remote work creates more coordination-related challenge"
+)
+
+write_csv(
+  triangulation_table,
+  "outputs/tables/triangulation_table.csv"
+)
+```
+
+```{r}
+triangulation_table
+```
+
+# Conclusion
+
+This project showed that internship experience is shaped by both opportunity and friction. Across the corpus, strengths were linked to mentorship, learning opportunities, meaningful work, professional growth, and skill development, while challenges were associated with workload, communication, role ambiguity, logistics, and emotional strain. Student and supervisor texts overlapped in some areas, but they also emphasized different aspects of the experience.
+
+The subgroup comparisons suggested that internship learning is developmental rather than static. Early journals more often reflected adjustment, support needs, and ambiguity, while later journals more often emphasized confidence, autonomy, and applied skill development. More broadly, the project demonstrates the value of combining inductive and deductive text-analytic methods to evaluate internship experience in a transparent and systematic way.
+
+** End of the project code**
